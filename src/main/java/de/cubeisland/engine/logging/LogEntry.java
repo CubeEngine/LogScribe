@@ -1,12 +1,5 @@
 package de.cubeisland.engine.logging;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Phillip
- * Date: 29.10.13
- * Time: 20:50
- * To change this template use File | Settings | File Templates.
- */
 public class LogEntry
 {
     private LogLevel level;
@@ -16,7 +9,6 @@ public class LogEntry
 
     public LogEntry(LogLevel level, Throwable throwable, String message, Object[] args)
     {
-
         this.level = level;
         this.throwable = throwable;
         this.message = message;

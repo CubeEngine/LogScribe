@@ -111,11 +111,13 @@ public class Log
             }
         }
 
+        FinalizedLogEntry finalizedEntry = new FinalizedLogEntry(entry.getLevel(), entry.getThrowable(), entry.getMessage(), entry.getArgs());
+
         if (this.targets.has())
         {
             for (LogTarget target : this.targets.get())
             {
-                target.log(entry);
+                target.log(finalizedEntry);
             }
         }
     }
