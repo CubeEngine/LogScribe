@@ -58,12 +58,6 @@ public class Log
         return this;
     }
 
-    public Log removeFirstFilter(LogFilter filter)
-    {
-        this.filters.get().removeFirstOccurrence(filters);
-        return this;
-    }
-
     public Log removeLastFilter()
     {
         this.filters.get().removeFirst();

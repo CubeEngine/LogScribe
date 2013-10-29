@@ -33,7 +33,6 @@ public class LogLevel implements Comparable<LogLevel>
         return priority;
     }
 
-    @Override
     public int compareTo(LogLevel o)
     {
         if (this.getPriority() < o.getPriority())
