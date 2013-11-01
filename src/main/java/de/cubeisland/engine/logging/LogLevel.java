@@ -3,8 +3,8 @@ package de.cubeisland.engine.logging;
 public class LogLevel implements Comparable<LogLevel>
 {
     // meta levels
-    public static final LogLevel ALL = new LogLevel("ALL", Integer.MAX_VALUE);
-    public static final LogLevel NONE = new LogLevel("NONE", Integer.MIN_VALUE);
+    public static final LogLevel ALL = new LogLevel("ALL", Integer.MIN_VALUE);
+    public static final LogLevel NONE = new LogLevel("NONE", Integer.MAX_VALUE);
 
     // default levels
     public static final LogLevel TRACE = new LogLevel("TRACE", 100);
