@@ -1,26 +1,13 @@
 package de.cubeisland.engine.logging;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Log
 {
     private static final Object[] NO_ARGS = {};
     private Log parent;
-    private final Lazy<LinkedList<LogFilter>> filters = new Lazy<LinkedList<LogFilter>>() {
-        @Override
-        public LinkedList<LogFilter> initialize()
-        {
-            return new LinkedList<LogFilter>();
-        }
-    };
-    private final Lazy<LinkedList<LogTarget>> targets = new Lazy<LinkedList<LogTarget>>() {
-        @Override
-        public LinkedList<LogTarget> initialize()
-        {
-            return new LinkedList<LogTarget>();
-        }
-    };
+    private final LinkedList<LogFilter> filters = new LinkedList<LogFilter>();
+    private final LinkedList<LogTarget> targets = new LinkedList<LogTarget>();
     private LogLevel level;
 
     public LogLevel getLevel()
@@ -36,43 +23,43 @@ public class Log
 
     public Log prependFilter(LogFilter filter)
     {
-        this.filters.get().addFirst(filter);
+        this.filters.addFirst(filter);
         return this;
     }
 
     public Log appendFilter(LogFilter filter)
     {
-        this.filters.get().addLast(filter);
+        this.filters.addLast(filter);
         return this;
     }
 
     public Log removeFilter(LogFilter filter)
     {
-        this.filters.get().remove(filter);
+        this.filters.remove(filter);
         return this;
     }
 
     public Log removeFirstFilter()
     {
-        this.filters.get().removeFirst();
+        this.filters.removeFirst();
         return this;
     }
 
     public Log removeLastFilter()
     {
-        this.filters.get().removeFirst();
+        this.filters.removeFirst();
         return this;
     }
 
     public Log addTarget(LogTarget target)
     {
-        this.targets.get().add(target);
+        this.targets.add(target);
         return this;
     }
 
     public Log removeTarget(LogTarget target)
     {
-        this.targets.get().remove(target);
+        this.targets.remove(target);
         return this;
     }
 
@@ -100,9 +87,9 @@ public class Log
 
         LogEntry entry = new LogEntry(level, t, message, args);
 
-        if (this.filters.has())
+        if (!this.filters.isEmpty())
         {
-            for (LogFilter filter : this.filters.get())
+            for (LogFilter filter : this.filters)
             {
                 if (!filter.accept(entry))
                 {
@@ -111,11 +98,11 @@ public class Log
             }
         }
 
-        FinalizedLogEntry finalizedEntry = new FinalizedLogEntry(entry.getLevel(), entry.getThrowable(), entry.getMessage(), entry.getArgs());
+        FinalizedLogEntry finalizedEntry = new FinalizedLogEntry(entry.getLevel(), entry.getThrowable(), entry.getMessage(), entry.getArgs(), date);
 
-        if (this.targets.has())
+        if (!this.targets.isEmpty())
         {
-            for (LogTarget target : this.targets.get())
+            for (LogTarget target : this.targets)
             {
                 target.log(finalizedEntry);
             }
