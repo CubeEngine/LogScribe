@@ -2,7 +2,7 @@ package de.cubeisland.engine.logging;
 
 import java.util.Date;
 
-public class LogEntry
+public class LogEntry implements Cloneable
 {
     private LogLevel level;
     private Throwable throwable;
@@ -62,5 +62,10 @@ public class LogEntry
     public void setArgs(Object[] args)
     {
         this.args = args;
+    }
+
+    LogEntry copy()
+    {
+        return new LogEntry(this.getLevel(), this.getThrowable(), this.getMessage(), this.getArgs(), this.getDate());
     }
 }

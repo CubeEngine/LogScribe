@@ -1,6 +1,6 @@
 package de.cubeisland.engine.logging.target;
 
-import de.cubeisland.engine.logging.FinalizedLogEntry;
+import de.cubeisland.engine.logging.LogEntry;
 import de.cubeisland.engine.logging.LogTarget;
 
 import java.io.File;
@@ -58,8 +58,7 @@ public class FileTarget extends LogTarget
         {}
     }
 
-    @Override
-    public void log(FinalizedLogEntry entry)
+    public void store(LogEntry entry)
     {
         // TODO implement me
     }

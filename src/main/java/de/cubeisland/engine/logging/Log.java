@@ -1,14 +1,42 @@
 package de.cubeisland.engine.logging;
 
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Log
 {
     private static final Object[] NO_ARGS = {};
+    private final String id;
     private Log parent;
     private final LinkedList<LogFilter> filters = new LinkedList<LogFilter>();
     private final LinkedList<LogTarget> targets = new LinkedList<LogTarget>();
     private LogLevel level;
+
+    public Log(String id)
+    {
+        this(id, null);
+    }
+
+    public Log(String id, Log parent)
+    {
+        this.id = id;
+        this.parent = parent;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public Log getParent()
+    {
+        return parent;
+    }
+
+    public void setParent(Log parent)
+    {
+        this.parent = parent;
+    }
 
     public LogLevel getLevel()
     {
@@ -80,13 +108,21 @@ public class Log
 
     public void log(LogLevel level, Throwable t, String message, Object... args)
     {
+        // this is copied from log(LogEntry) to prevent unnecessary object creation
         if (level.compareTo(this.level) < 0)
         {
             return;
         }
 
-        LogEntry entry = new LogEntry(level, t, message, args);
+        this.log(new LogEntry(level, t, message, args, new Date()));
+    }
 
+    public void log(final LogEntry entry)
+    {
+        if (level.compareTo(this.level) < 0)
+        {
+            return;
+        }
         if (!this.filters.isEmpty())
         {
             for (LogFilter filter : this.filters)
@@ -98,13 +134,17 @@ public class Log
             }
         }
 
-        FinalizedLogEntry finalizedEntry = new FinalizedLogEntry(entry.getLevel(), entry.getThrowable(), entry.getMessage(), entry.getArgs(), date);
+        final Log parent = this.getParent();
+        if (parent != null)
+        {
+            parent.log(entry);
+        }
 
         if (!this.targets.isEmpty())
         {
             for (LogTarget target : this.targets)
             {
-                target.log(finalizedEntry);
+                target.log(entry.copy());
             }
         }
     }
