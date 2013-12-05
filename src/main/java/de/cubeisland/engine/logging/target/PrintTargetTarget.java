@@ -15,7 +15,7 @@ public class PrintTargetTarget extends LogTarget
     }
 
     @Override
-    public void store(LogEntry entry)
+    public void publish(LogEntry entry)
     {
         //To change body of implemented methods use File | Settings | File Templates.
     }

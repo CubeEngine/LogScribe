@@ -16,10 +16,10 @@ public abstract class LogTarget
             }
         }
 
-        this.store(entry);
+        this.publish(entry);
     }
 
-    public abstract void store(LogEntry entry);
+    public abstract void publish(LogEntry entry);
 
     public final LogTarget prependFilter(LogFilter filter)
     {

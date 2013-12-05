@@ -75,7 +75,7 @@ public class FileTarget extends LogTarget
         {}
     }
 
-    public void store(LogEntry entry)
+    public void publish(LogEntry entry)
     {
         // TODO implement me
     }
