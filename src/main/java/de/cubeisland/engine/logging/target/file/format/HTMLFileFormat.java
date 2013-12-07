@@ -9,7 +9,7 @@ public class HTMLFileFormat implements FileFormat
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void writeEntry(StringBuilder builder, LogEntry logEntry)
+    public void writeEntry(LogEntry logEntry, StringBuilder builder)
     {
         //To change body of implemented methods use File | Settings | File Templates.
     }

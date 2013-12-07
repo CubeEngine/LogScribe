@@ -1,7 +1,7 @@
 package de.cubeisland.engine.logging.target;
 
+import de.cubeisland.engine.logging.FormattedTarget;
 import de.cubeisland.engine.logging.LogEntry;
-import de.cubeisland.engine.logging.LogTarget;
 import de.cubeisland.engine.logging.target.file.cycler.LogCycler;
 import de.cubeisland.engine.logging.target.file.format.FileFormat;
 
@@ -17,15 +17,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 
-public class FileTarget extends LogTarget
+public class AsyncFileTarget extends FormattedTarget<FileFormat>
 {
     private File file;
     private final boolean append;
-    private LogCycler cycler;
+    private final LogCycler cycler;
 
-    private FileFormat format; // TODO set
     private ExecutorService executor;
-    private ThreadFactory threadFactory;
+    private final ThreadFactory threadFactory;
 
     private final Runnable runner = new Runnable()
     {
@@ -43,18 +42,31 @@ public class FileTarget extends LogTarget
         }
     };
 
-    private ConcurrentLinkedQueue<LogEntry> queue = new ConcurrentLinkedQueue<LogEntry>();
+    private final ConcurrentLinkedQueue<LogEntry> queue = new ConcurrentLinkedQueue<LogEntry>();
     private Future<?> future;
 
-    public FileTarget(File file)
+    public AsyncFileTarget(File file, FileFormat format)
     {
-        this(file, true);
+        this(file, format, true);
     }
 
-    public FileTarget(File file, boolean append)
+    public AsyncFileTarget(File file, FileFormat format, boolean append)
     {
+        this(file, format, append, null);
+    }
+
+    public AsyncFileTarget(File file, FileFormat format, boolean append, LogCycler cycler)
+    {
+        this(file, format, append, cycler, null);
+    }
+
+    public AsyncFileTarget(File file, FileFormat format, boolean append, LogCycler cycler, ThreadFactory threadFactory)
+    {
+        super(format);
         this.file = file;
         this.append = append;
+        this.threadFactory = threadFactory;
+        this.cycler = cycler;
     }
 
     public File getFile()
@@ -67,22 +79,11 @@ public class FileTarget extends LogTarget
         return append;
     }
 
-    public LogCycler getCycler()
-    {
-        return cycler;
-    }
-
-    public void setCycler(LogCycler cycler)
-    {
-        this.cycler = cycler;
-    }
-
     private BufferedWriter open()
     {
-        LogCycler cycler = this.getCycler();
-        if (cycler != null)
+        if (this.cycler != null)
         {
-            this.file = cycler.cycle(this.file, closeCallBack);
+            this.file = this.cycler.cycle(this.file, closeCallBack);
         }
         return this.getWriter();
     }
@@ -116,7 +117,7 @@ public class FileTarget extends LogTarget
         {
             LogEntry poll = queue.poll();
             StringBuilder sb = new StringBuilder();
-            this.format.writeEntry(sb, poll);
+            this.format.writeEntry(poll, sb);
             try
             {
                 writer.write(sb.toString());
@@ -152,7 +153,7 @@ public class FileTarget extends LogTarget
         // else currently running IO
     }
 
-    public void publish(LogEntry entry)
+    protected void publish(LogEntry entry)
     {
         this.queue.add(entry);
         this.publish();
@@ -172,10 +173,5 @@ public class FileTarget extends LogTarget
             }
         }
         return executor;
-    }
-
-    public void setThreadFactory(ThreadFactory threadFactory)
-    {
-        this.threadFactory = threadFactory;
     }
 }

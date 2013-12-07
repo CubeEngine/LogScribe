@@ -6,7 +6,7 @@ import de.cubeisland.engine.logging.LogTarget;
 public class EmailTarget extends LogTarget
 {
     @Override
-    public void publish(LogEntry entry)
+    protected void publish(LogEntry entry)
     {
         //To change body of implemented methods use File | Settings | File Templates.
     }

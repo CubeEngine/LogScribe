@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public abstract class LogTarget
 {
-    private LinkedList<LogFilter> filters = new LinkedList<LogFilter>();
+    protected LinkedList<LogFilter> filters = new LinkedList<LogFilter>();
 
     public final void log(LogEntry entry)
     {
@@ -19,7 +19,7 @@ public abstract class LogTarget
         this.publish(entry);
     }
 
-    public abstract void publish(LogEntry entry);
+    protected abstract void publish(LogEntry entry);
 
     public final LogTarget prependFilter(LogFilter filter)
     {
