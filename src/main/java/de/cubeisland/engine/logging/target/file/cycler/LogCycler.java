@@ -4,5 +4,5 @@ import java.io.File;
 
 public interface LogCycler
 {
-    boolean cycle(File file);
+    File cycle(File file, Runnable closeCallBack);
 }

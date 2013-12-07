@@ -1,5 +1,7 @@
 package de.cubeisland.engine.logging.target.file.format;
 
+import de.cubeisland.engine.logging.LogEntry;
+
 public class HTMLFileFormat implements FileFormat
 {
     public void writeHeader(StringBuilder builder)
@@ -7,7 +9,7 @@ public class HTMLFileFormat implements FileFormat
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void writeEntry(StringBuilder builder)
+    public void writeEntry(StringBuilder builder, LogEntry logEntry)
     {
         //To change body of implemented methods use File | Settings | File Templates.
     }

@@ -4,8 +4,8 @@ import java.io.File;
 
 public class DateCycler implements LogCycler
 {
-    public boolean cycle(File file)
+    public File cycle(File file, Runnable closeCallBack)
     {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return file;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
