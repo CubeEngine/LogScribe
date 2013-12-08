@@ -61,15 +61,20 @@ public class LogFileFormat implements FileFormat
         map.put("{msg}", message);
         map.put("{date}", dateFormat.format(logEntry.getDate()));
         map.put("{level}", logEntry.getLevel().getName());
-        if (logEntry.getThrowable() != null)
-        {
-            map.put("{exmsg}", logEntry.getThrowable().getLocalizedMessage());
-        }
         message = macroProcessor.process(format, map);
-        // TODO what to do with exception stacktrace
         builder.append(message);
-
-        //To change body of implemented methods use File | Settings | File Templates.
+        Throwable throwable = logEntry.getThrowable();
+        if (throwable != null)
+        {
+            if (!throwable.getLocalizedMessage().equals(logEntry.getMessage()))
+            {
+                builder.append("\n").append(throwable.getLocalizedMessage()).append("\n");
+            }
+            for (StackTraceElement element : throwable.getStackTrace())
+            {
+                builder.append("\tat").append(element).append("\n");
+            }
+        }
     }
 
     public void writeTrailer(StringBuilder builder)
