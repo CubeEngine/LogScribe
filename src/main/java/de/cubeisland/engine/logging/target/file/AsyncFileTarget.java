@@ -1,7 +1,7 @@
-package de.cubeisland.engine.logging.target;
+package de.cubeisland.engine.logging.target.file;
 
-import de.cubeisland.engine.logging.FormattedTarget;
 import de.cubeisland.engine.logging.LogEntry;
+import de.cubeisland.engine.logging.target.FormattedTarget;
 import de.cubeisland.engine.logging.target.file.cycler.LogCycler;
 import de.cubeisland.engine.logging.target.file.format.FileFormat;
 
@@ -12,10 +12,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class AsyncFileTarget extends FormattedTarget<FileFormat>
 {
@@ -181,5 +184,28 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
             }
         }
         return executor;
+    }
+
+    @Override
+    protected void shutdown()
+    {
+        if (!(this.future == null || this.future.isDone()))
+        {
+            try
+            {
+                future.get(5, TimeUnit.SECONDS); // check for logging queue to empty
+            }
+            catch (InterruptedException e)
+            {
+            }
+            catch (ExecutionException e)
+            {
+            }
+            catch (TimeoutException e)
+            {
+            }
+            // TODO handle Exceptions
+        }
+        this.close();
     }
 }

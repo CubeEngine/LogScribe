@@ -1,6 +1,7 @@
-package de.cubeisland.engine.logging;
+package de.cubeisland.engine.logging.target.format;
 
-import de.cubeisland.engine.logging.target.Format;
+import de.cubeisland.engine.logging.LogEntry;
+import de.cubeisland.engine.logging.MacroProcessor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,8 +1,8 @@
 package de.cubeisland.engine.logging.target;
 
-import de.cubeisland.engine.logging.DefaultFormat;
-import de.cubeisland.engine.logging.FormattedTarget;
+import de.cubeisland.engine.logging.target.format.DefaultFormat;
 import de.cubeisland.engine.logging.LogEntry;
+import de.cubeisland.engine.logging.target.format.Format;
 
 import java.io.PrintStream;
 
@@ -26,4 +26,8 @@ public class PrintTarget extends FormattedTarget<Format>
         this.format.writeEntry(entry, sb);
         stream.println(sb.toString());
     }
+
+    @Override
+    protected void shutdown()
+    {}
 }

@@ -1,4 +1,4 @@
-package de.cubeisland.engine.logging.target;
+package de.cubeisland.engine.logging.target.proxy;
 
 import de.cubeisland.engine.logging.LogEntry;
 import de.cubeisland.engine.logging.LogLevel;
@@ -29,6 +29,12 @@ public class JULProxyTarget extends ProxyTarget<Logger>
         this.handle.log(logRecord);
     }
 
+    @Override
+    public void setProxyLevel(LogLevel level)
+    {
+        this.handle.setLevel(this.getJulLevel(level));
+    }
+
     private Level getJulLevel(LogLevel level)
     {
         Level julLevel = this.cachedJulLevel.get(level);
@@ -46,5 +52,11 @@ public class JULProxyTarget extends ProxyTarget<Logger>
         {
             super(level.getName(), level.getPriority());
         }
+    }
+
+    @Override
+    protected void shutdown()
+    {
+        // TODO ?
     }
 }

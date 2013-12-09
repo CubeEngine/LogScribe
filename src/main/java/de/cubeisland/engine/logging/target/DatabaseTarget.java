@@ -5,9 +5,14 @@ import de.cubeisland.engine.logging.LogTarget;
 
 public class DatabaseTarget extends LogTarget
 {
+    // TODO implement me
     @Override
     protected void publish(LogEntry entry)
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    protected void shutdown()
+    {
     }
 }

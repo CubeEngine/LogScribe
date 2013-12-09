@@ -1,5 +1,6 @@
-package de.cubeisland.engine.logging.target;
+package de.cubeisland.engine.logging.target.proxy;
 
+import de.cubeisland.engine.logging.LogLevel;
 import de.cubeisland.engine.logging.LogTarget;
 
 public abstract class ProxyTarget<T> extends LogTarget
@@ -10,4 +11,6 @@ public abstract class ProxyTarget<T> extends LogTarget
     {
         this.handle = handle;
     }
+
+    public abstract void setProxyLevel(LogLevel level);
 }

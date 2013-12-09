@@ -1,6 +1,7 @@
-package de.cubeisland.engine.logging;
+package de.cubeisland.engine.logging.target;
 
-import de.cubeisland.engine.logging.target.Format;
+import de.cubeisland.engine.logging.LogTarget;
+import de.cubeisland.engine.logging.target.format.Format;
 
 public abstract class FormattedTarget<F extends Format> extends LogTarget
 {

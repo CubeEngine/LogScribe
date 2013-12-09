@@ -1,7 +1,6 @@
 package de.cubeisland.engine.logging.filter;
 
 import de.cubeisland.engine.logging.LogEntry;
-import de.cubeisland.engine.logging.LogFilter;
 
 public class MessageFilter implements LogFilter
 {

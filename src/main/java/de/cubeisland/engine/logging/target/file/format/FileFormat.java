@@ -1,6 +1,6 @@
 package de.cubeisland.engine.logging.target.file.format;
 
-import de.cubeisland.engine.logging.target.Format;
+import de.cubeisland.engine.logging.target.format.Format;
 
 public interface FileFormat extends Format
 {
