@@ -55,7 +55,7 @@ public class JULProxyTarget extends ProxyTarget<Logger>
     }
 
     @Override
-    protected void shutdown()
+    protected void shutdown0()
     {
         // TODO ?
     }

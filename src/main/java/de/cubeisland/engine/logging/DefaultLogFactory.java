@@ -34,6 +34,13 @@ public class DefaultLogFactory implements LogFactory
 
     public void shutdown()
     {
+        for (Map<String, Log> stringLogMap : this.logs.values())
+        {
+            for (Log log : stringLogMap.values())
+            {
+                log.shutdown();
+            }
+        }
         // TODO
     }
 

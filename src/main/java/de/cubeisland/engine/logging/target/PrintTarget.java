@@ -28,6 +28,6 @@ public class PrintTarget extends FormattedTarget<Format>
     }
 
     @Override
-    protected void shutdown()
+    protected void shutdown0()
     {}
 }

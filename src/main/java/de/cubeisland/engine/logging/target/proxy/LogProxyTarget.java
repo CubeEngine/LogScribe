@@ -24,7 +24,7 @@ public class LogProxyTarget extends ProxyTarget<Log>
     }
 
     @Override
-    protected void shutdown()
+    protected void shutdown0()
     {
         this.handle.shutdown();
     }

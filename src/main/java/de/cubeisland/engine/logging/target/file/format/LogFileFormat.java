@@ -4,6 +4,7 @@ import de.cubeisland.engine.logging.target.format.DefaultFormat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LogFileFormat extends DefaultFormat implements FileFormat
 {
@@ -19,11 +20,12 @@ public class LogFileFormat extends DefaultFormat implements FileFormat
 
     public void writeHeader(StringBuilder builder)
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        // TODO
+        builder.append("Logging Start: ").append(this.dateFormat.format(new Date(System.currentTimeMillis()))).append("\n");
     }
 
     public void writeTrailer(StringBuilder builder)
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        builder.append("Logging End: ").append(this.dateFormat.format(new Date(System.currentTimeMillis()))).append("\n");
     }
 }

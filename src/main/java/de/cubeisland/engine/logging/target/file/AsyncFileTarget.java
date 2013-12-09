@@ -109,6 +109,20 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
             // TODO FileLock
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             this.writer = new BufferedWriter(osw);
+            StringBuilder sb = new StringBuilder();
+            this.format.writeHeader(sb);
+            if (!sb.toString().isEmpty())
+            {
+                try
+                {
+                    writer.write(sb.toString());
+                }
+                catch (IOException e)
+                {
+                    // TODO handle me
+                }
+            }
+
         }
         return writer;
     }
@@ -187,7 +201,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
     }
 
     @Override
-    protected void shutdown()
+    protected void shutdown0()
     {
         if (!(this.future == null || this.future.isDone()))
         {
