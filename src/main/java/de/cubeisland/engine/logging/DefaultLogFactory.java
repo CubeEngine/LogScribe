@@ -22,7 +22,7 @@ public class DefaultLogFactory implements LogFactory
         Log log = logMap.get(id);
         if (log == null)
         {
-            logMap.put(id, log = new Log(this, id));
+            logMap.put(id, log = new Log(this, clazz, id));
         }
         return log;
     }
@@ -41,12 +41,13 @@ public class DefaultLogFactory implements LogFactory
                 log.shutdown();
             }
         }
-        // TODO
+        this.logs.clear();
     }
 
     public void shutdown(Log log)
     {
         log.shutdown0();
+        this.logs.get(log.getClazz()).remove(log.getId());
         // TODO
     }
 }

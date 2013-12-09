@@ -9,14 +9,21 @@ public class Log extends LogBase
 {
     private final LogFactory factory;
     private final String id;
+    private final Class<?> clazz;
     private final Date birthdate = new Date(System.currentTimeMillis());
 
     private final LinkedList<LogTarget> targets = new LinkedList<LogTarget>();
 
-    public Log(LogFactory factory, String id)
+    public Log(LogFactory factory, Class<?> clazz, String id)
     {
         this.factory = factory;
         this.id = id;
+        this.clazz = clazz;
+    }
+
+    Class<?> getClazz()
+    {
+        return this.clazz;
     }
 
     public String getId()
