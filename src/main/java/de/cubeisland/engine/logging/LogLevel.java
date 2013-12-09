@@ -1,7 +1,12 @@
 package de.cubeisland.engine.logging;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LogLevel implements Comparable<LogLevel>
 {
+    private static Map<String, LogLevel> map = new HashMap<String, LogLevel>();
+
     // meta levels
     public static final LogLevel ALL = new LogLevel("ALL", Integer.MIN_VALUE);
     public static final LogLevel NONE = new LogLevel("NONE", Integer.MAX_VALUE);
@@ -13,7 +18,6 @@ public class LogLevel implements Comparable<LogLevel>
     public static final LogLevel WARN = new LogLevel("WARN", 400);
     public static final LogLevel ERROR = new LogLevel("ERROR", 500);
 
-
     private final String name;
     private final int priority;
 
@@ -21,6 +25,7 @@ public class LogLevel implements Comparable<LogLevel>
     {
         this.name = name;
         this.priority = priority;
+        map.put(name.toUpperCase(), this);
     }
 
     public String getName()
@@ -44,5 +49,10 @@ public class LogLevel implements Comparable<LogLevel>
             return 1;
         }
         return 0;
+    }
+
+    public static LogLevel toLevel(String name)
+    {
+        return map.get(name.toUpperCase());
     }
 }

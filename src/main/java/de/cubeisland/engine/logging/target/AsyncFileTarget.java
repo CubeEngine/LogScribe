@@ -127,6 +127,14 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
                 // TODO handle me
             }
         }
+        try
+        {
+            writer.flush();
+        }
+        catch (IOException e)
+        {
+            // TODO handle me
+        }
     }
 
     private void close()

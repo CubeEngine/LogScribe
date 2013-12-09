@@ -22,8 +22,24 @@ public class DefaultLogFactory implements LogFactory
         Log log = logMap.get(id);
         if (log == null)
         {
-            logMap.put(id, log = new Log(id));
+            logMap.put(id, log = new Log(this, id));
         }
         return log;
+    }
+
+    public Log getLog(Class<?> clazz)
+    {
+        return this.getLog(clazz, clazz.getName());
+    }
+
+    public void shutdown()
+    {
+        // TODO
+    }
+
+    public void shutdown(Log log)
+    {
+        log.shutdown0();
+        // TODO
     }
 }

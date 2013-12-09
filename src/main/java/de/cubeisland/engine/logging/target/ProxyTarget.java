@@ -1,13 +1,13 @@
 package de.cubeisland.engine.logging.target;
 
-import de.cubeisland.engine.logging.LogEntry;
 import de.cubeisland.engine.logging.LogTarget;
 
-public class ProxyTarget extends LogTarget
+public abstract class ProxyTarget<T> extends LogTarget
 {
-    @Override
-    protected void publish(LogEntry entry)
+    protected final T handle;
+
+    protected ProxyTarget(T handle)
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        this.handle = handle;
     }
 }

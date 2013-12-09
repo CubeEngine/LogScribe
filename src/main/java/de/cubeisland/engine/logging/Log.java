@@ -6,36 +6,23 @@ import java.util.LinkedList;
 public class Log
 {
     private static final Object[] NO_ARGS = {};
+    private final LogFactory factory;
     private final String id;
-    private Log parent;
     private final LinkedList<LogFilter> filters = new LinkedList<LogFilter>();
     private final LinkedList<LogTarget> targets = new LinkedList<LogTarget>();
-    private LogLevel level;
+    private LogLevel level = LogLevel.ALL;
 
-    public Log(String id)
-    {
-        this(id, null);
-    }
+    // TODO creation date
 
-    public Log(String id, Log parent)
+    public Log(LogFactory factory, String id)
     {
+        this.factory = factory;
         this.id = id;
-        this.parent = parent;
     }
 
     public String getId()
     {
         return id;
-    }
-
-    public Log getParent()
-    {
-        return parent;
-    }
-
-    public void setParent(Log parent)
-    {
-        this.parent = parent;
     }
 
     public LogLevel getLevel()
@@ -45,6 +32,10 @@ public class Log
 
     public Log setLevel(LogLevel level)
     {
+        if (level == null)
+        {
+            return this;
+        }
         this.level = level;
         return this;
     }
@@ -132,12 +123,6 @@ public class Log
                     return;
                 }
             }
-        }
-
-        final Log parent = this.getParent();
-        if (parent != null)
-        {
-            parent.log(entry);
         }
 
         if (!this.targets.isEmpty())
@@ -247,5 +232,15 @@ public class Log
     public void error(Throwable t, String message, Object... args)
     {
         this.log(LogLevel.ERROR, t, message, args);
+    }
+
+    public void shutdown()
+    {
+        this.factory.shutdown(this);
+    }
+
+    void shutdown0()
+    {
+        // TODO
     }
 }

@@ -6,7 +6,7 @@
 
     <groupId>de.cubeisland.engine</groupId>
     <artifactId>logging</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>Logging</name>
 
     <properties>
