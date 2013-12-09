@@ -49,7 +49,8 @@ public class DefaultFormat implements Format
         Throwable throwable = logEntry.getThrowable();
         if (throwable != null)
         {
-            if (!throwable.getLocalizedMessage().equals(logEntry.getMessage()))
+            if (throwable.getLocalizedMessage() != null &&
+               !throwable.getLocalizedMessage().equals(logEntry.getMessage()))
             {
                 builder.append(throwable.getLocalizedMessage()).append("\n");
             }

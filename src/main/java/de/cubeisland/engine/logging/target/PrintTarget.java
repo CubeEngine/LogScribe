@@ -8,7 +8,7 @@ import java.io.PrintStream;
 
 public class PrintTarget extends FormattedTarget<Format>
 {
-    public static PrintTarget STDEER = new PrintTarget(System.err, new DefaultFormat());
+    public static PrintTarget STDERR = new PrintTarget(System.err, new DefaultFormat());
     public static PrintTarget STDOUT = new PrintTarget(System.out, new DefaultFormat());
 
     private final PrintStream stream;
