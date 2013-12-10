@@ -10,10 +10,10 @@ import java.util.Map;
 
 public class DefaultFormat implements Format
 {
+    private static final MacroProcessor macroProcessor = new MacroProcessor();
+
     protected final DateFormat dateFormat;
     private final String format;
-
-    private static final MacroProcessor macroProcessor = new MacroProcessor();
 
     public DefaultFormat(String format, DateFormat dateFormat)
     {
