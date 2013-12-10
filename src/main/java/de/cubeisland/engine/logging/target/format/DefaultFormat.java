@@ -35,7 +35,7 @@ public class DefaultFormat implements Format
 
     public void writeEntry(LogEntry logEntry, StringBuilder builder)
     {
-        String message = logEntry.getMessage();
+        String message = String.valueOf(logEntry.getMessage());
         Map<String, Object> map = new HashMap<String, Object>();
         if (logEntry.getArgs() != null && logEntry.getArgs().length != 0)
         {
