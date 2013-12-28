@@ -52,11 +52,17 @@ public class DefaultFormat implements Format
             if (throwable.getLocalizedMessage() != null &&
                !throwable.getLocalizedMessage().equals(logEntry.getMessage()))
             {
-                builder.append(throwable.getLocalizedMessage()).append("\n");
+                builder.append(logEntry.getMessage()).append("\n");
             }
+            builder.append(throwable.getClass().getName());
+            if (throwable.getLocalizedMessage() != null)
+            {
+               builder.append(": ").append(throwable.getLocalizedMessage());
+            }
+            builder.append("\n");
             for (StackTraceElement element : throwable.getStackTrace())
             {
-                builder.append("\tat").append(element).append("\n");
+                builder.append("\tat ").append(element).append("\n");
             }
         }
     }
