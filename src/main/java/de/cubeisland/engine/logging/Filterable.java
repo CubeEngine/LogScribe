@@ -69,7 +69,7 @@ public abstract class Filterable
 
     public void log(final LogEntry entry)
     {
-        if (level.compareTo(this.level) < 0)
+        if (entry.getLevel().compareTo(this.level) < 0)
         {
             return;
         }
