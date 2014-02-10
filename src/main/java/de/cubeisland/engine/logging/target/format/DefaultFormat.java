@@ -54,16 +54,26 @@ public class DefaultFormat implements Format
             {
                 builder.append(logEntry.getMessage()).append("\n");
             }
-            builder.append(throwable.getClass().getName());
-            if (throwable.getLocalizedMessage() != null)
-            {
-               builder.append(": ").append(throwable.getLocalizedMessage());
-            }
-            builder.append("\n");
-            for (StackTraceElement element : throwable.getStackTrace())
-            {
-                builder.append("\tat ").append(element).append("\n");
-            }
+            this.causedBy(builder, throwable);
+        }
+    }
+
+    private void causedBy(StringBuilder builder, Throwable throwable)
+    {
+        builder.append(throwable.getClass().getName());
+        if (throwable.getLocalizedMessage() != null)
+        {
+            builder.append(": ").append(throwable.getLocalizedMessage());
+        }
+        builder.append("\n");
+        for (StackTraceElement element : throwable.getStackTrace())
+        {
+            builder.append("\tat ").append(element).append("\n");
+        }
+        if (throwable.getCause() != null)
+        {
+            builder.append("Caused by: ");
+            this.causedBy(builder, throwable.getCause());
         }
     }
 
