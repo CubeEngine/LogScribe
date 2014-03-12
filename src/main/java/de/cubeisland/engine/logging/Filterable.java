@@ -24,12 +24,12 @@ package de.cubeisland.engine.logging;
 
 import de.cubeisland.engine.logging.filter.LogFilter;
 
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.List;
 
 public abstract class Filterable
 {
-    protected List<LogFilter> filters = new LinkedList<LogFilter>();
+    protected Deque<LogFilter> filters = new LinkedList<LogFilter>();
     protected LogLevel level = LogLevel.ALL;
 
     public final void prependFilter(LogFilter filter)
