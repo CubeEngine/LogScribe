@@ -8,8 +8,8 @@ import java.io.PrintStream;
 
 public class PrintTarget extends FormattedTarget<Format>
 {
-    public static PrintTarget STDERR = new PrintTarget(System.err, new DefaultFormat());
-    public static PrintTarget STDOUT = new PrintTarget(System.out, new DefaultFormat());
+    public static final PrintTarget STDERR = new PrintTarget(System.err, new DefaultFormat());
+    public static final PrintTarget STDOUT = new PrintTarget(System.out, new DefaultFormat());
 
     private final PrintStream stream;
 
@@ -29,5 +29,6 @@ public class PrintTarget extends FormattedTarget<Format>
 
     @Override
     protected void shutdown0()
-    {}
+    {
+    }
 }

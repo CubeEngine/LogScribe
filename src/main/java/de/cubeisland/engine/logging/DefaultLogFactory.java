@@ -39,12 +39,14 @@ public class DefaultLogFactory implements LogFactory
         Map<String, Log> logMap = this.logs.get(clazz);
         if (logMap == null)
         {
-            this.logs.put(clazz, logMap = new ConcurrentHashMap<String, Log>());
+            logMap = new ConcurrentHashMap<String, Log>();
+            this.logs.put(clazz, logMap);
         }
         Log log = logMap.get(id);
         if (log == null)
         {
-            logMap.put(id, log = new Log(this, clazz, id));
+            log = new Log(this, clazz, id);
+            logMap.put(id, log);
         }
         return log;
     }

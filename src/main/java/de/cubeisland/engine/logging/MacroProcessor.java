@@ -57,6 +57,7 @@ public class MacroProcessor
                     }
                 default:
                     finalString.append(chars[i]);
+                    break;
             }
         }
 
@@ -66,25 +67,25 @@ public class MacroProcessor
     private int replaceVar(StringBuilder out, char[] in, int offset, Map<String, Object> values)
     {
         int i = offset + 1;
-        String name = "";
+        StringBuilder name = new StringBuilder();
         boolean done = false;
         for (; i < in.length && !done; ++i)
         {
-            switch (in[i])
+            if (in[i] == MACRO_END)
             {
-                case MACRO_END:
-                    done = true;
-                    --i;
-                    break;
-                default:
-                    name += in[i];
+                done = true;
+                --i;
+            }
+            else
+            {
+                name.append(in[i]);
             }
         }
 
-        String value = String.valueOf(values.get(name));
+        Object value = values.get(name.toString());
         if (value != null)
         {
-            out.append(value);
+            out.append(String.valueOf(value));
         }
         else
         {

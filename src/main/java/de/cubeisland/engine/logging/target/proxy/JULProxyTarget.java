@@ -46,7 +46,7 @@ public class JULProxyTarget extends ProxyTarget<Logger>
         return julLevel;
     }
 
-    private class JulLevel extends Level
+    private static class JulLevel extends Level
     {
         private JulLevel(LogLevel level)
         {

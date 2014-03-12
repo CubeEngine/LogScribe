@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class DefaultFormat implements Format
 {
-    private static final MacroProcessor macroProcessor = new MacroProcessor();
+    private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();
 
     protected final DateFormat dateFormat;
     private final String format;
@@ -44,7 +44,7 @@ public class DefaultFormat implements Format
         map.put("msg", message);
         map.put("date", dateFormat.format(logEntry.getDate()));
         map.put("level", logEntry.getLevel().getName());
-        message = macroProcessor.process(format, map);
+        message = MACRO_PROCESSOR.process(format, map);
         builder.append(message).append("\n");
         Throwable throwable = logEntry.getThrowable();
         if (throwable != null)
@@ -54,30 +54,32 @@ public class DefaultFormat implements Format
             {
                 builder.append(logEntry.getMessage()).append("\n");
             }
-            this.causedBy(builder, throwable);
+            while (true)
+            {
+                builder.append(throwable.getClass().getName());
+                if (throwable.getLocalizedMessage() != null)
+                {
+                    builder.append(": ").append(throwable.getLocalizedMessage());
+                }
+                builder.append("\n");
+                for (StackTraceElement element : throwable.getStackTrace())
+                {
+                    builder.append("\tat ").append(element).append("\n");
+                }
+                if (throwable.getCause() != null)
+                {
+                    builder.append("Caused by: ");
+                    throwable = throwable.getCause();
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
     }
 
-    private void causedBy(StringBuilder builder, Throwable throwable)
-    {
-        builder.append(throwable.getClass().getName());
-        if (throwable.getLocalizedMessage() != null)
-        {
-            builder.append(": ").append(throwable.getLocalizedMessage());
-        }
-        builder.append("\n");
-        for (StackTraceElement element : throwable.getStackTrace())
-        {
-            builder.append("\tat ").append(element).append("\n");
-        }
-        if (throwable.getCause() != null)
-        {
-            builder.append("Caused by: ");
-            this.causedBy(builder, throwable.getCause());
-        }
-    }
-
-    private static final String arg = "\\{\\}";
+    private static final String ARG = "\\{\\}";
 
     public static String parseArgs(String msg, Object... args)
     {
@@ -86,11 +88,12 @@ public class DefaultFormat implements Format
             return msg;
         }
         int i = 0;
-        while (msg.contains("{}"))
+        String result = msg;
+        while (result.contains("{}"))
         {
             try
             {
-                msg = msg.replaceFirst(arg, "\\{" + i++ + "\\}");
+                result = result.replaceFirst(ARG, "\\{" + i++ + "\\}");
             }
             catch (ArrayIndexOutOfBoundsException e)
             {
@@ -99,15 +102,15 @@ public class DefaultFormat implements Format
         }
         for (i = 0; i < args.length; i++)
         {
-            if (msg.contains("{"))
+            if (result.contains("{"))
             {
-                msg = msg.replaceAll("\\{" + i + "\\}", String.valueOf(args[i]).replace("\\","\\\\"));
+                result = result.replaceAll("\\{" + i + "\\}", String.valueOf(args[i]).replace("\\","\\\\"));
             }
             else
             {
                 break;
             }
         }
-        return msg;
+        return result;
     }
 }

@@ -129,7 +129,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
 
     private void publish0()
     {
-        BufferedWriter writer = this.open();
+        BufferedWriter bWriter = this.open();
         while (!this.queue.isEmpty())
         {
             LogEntry poll = queue.poll();
@@ -137,7 +137,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
             this.format.writeEntry(poll, sb);
             try
             {
-                writer.write(sb.toString());
+                bWriter.write(sb.toString());
             }
             catch (IOException e)
             {
@@ -146,7 +146,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
         }
         try
         {
-            writer.flush();
+            bWriter.flush();
         }
         catch (IOException e)
         {

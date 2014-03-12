@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class FilesizeCycler implements LogCycler
 {
-    private static final MacroProcessor macroProcessor = new MacroProcessor();
+    private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();
 
     // {i} {date} {name} {ending}
 
@@ -46,8 +46,8 @@ public class FilesizeCycler implements LogCycler
             String ending = "";
             if (name.contains("."))
             {
-                ending = name.substring(name.lastIndexOf("."));
-                name = name.substring(0, name.lastIndexOf("."));
+                ending = name.substring(name.lastIndexOf('.'));
+                name = name.substring(0, name.lastIndexOf('.'));
             }
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("date", dateFormat.format(new Date(System.currentTimeMillis())));
@@ -55,13 +55,13 @@ public class FilesizeCycler implements LogCycler
             map.put("ending", ending);
             map.put("_i", "");
             map.put("i", "");
-            File cycled = new File(directory, macroProcessor.process(format, map));
+            File cycled = new File(directory, MACRO_PROCESSOR.process(format, map));
             int i = 1;
             while (cycled.exists())
             {
                 map.put("_i", "_" + i);
                 map.put("i", i++);
-                cycled = new File(directory, macroProcessor.process(format, map));
+                cycled = new File(directory, MACRO_PROCESSOR.process(format, map));
             }
             if (!cycled.getParentFile().exists())
             {

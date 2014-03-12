@@ -77,4 +77,10 @@ public class LogLevel implements Comparable<LogLevel>
     {
         return map.get(name.toUpperCase());
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return obj instanceof LogLevel && this.compareTo((LogLevel)obj) == 0;
+    }
 }
