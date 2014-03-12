@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Logcycling based on FileSize
+ */
 public class FilesizeCycler implements LogCycler
 {
     private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();

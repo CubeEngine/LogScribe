@@ -2,6 +2,7 @@ package de.cubeisland.engine.logging.target.file.format;
 
 import de.cubeisland.engine.logging.LogEntry;
 
+// TODO implement me
 public class HTMLFileFormat implements FileFormat
 {
     public void writeHeader(StringBuilder builder)

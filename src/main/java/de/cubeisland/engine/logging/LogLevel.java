@@ -79,8 +79,30 @@ public class LogLevel implements Comparable<LogLevel>
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(Object o)
     {
-        return obj instanceof LogLevel && this.compareTo((LogLevel)obj) == 0;
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
+
+        LogLevel logLevel = (LogLevel)o;
+
+        if (priority != logLevel.priority)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return priority;
     }
 }

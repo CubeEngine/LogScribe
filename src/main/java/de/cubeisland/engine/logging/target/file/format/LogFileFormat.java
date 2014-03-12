@@ -6,6 +6,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * A Simple Plain Text LogFileFormat
+ */
 public class LogFileFormat extends DefaultFormat implements FileFormat
 {
     public LogFileFormat(String format)
@@ -20,7 +23,6 @@ public class LogFileFormat extends DefaultFormat implements FileFormat
 
     public void writeHeader(StringBuilder builder)
     {
-        // TODO
         builder.append("Logging Start: ").append(this.dateFormat.format(new Date(System.currentTimeMillis()))).append("\n");
     }
 

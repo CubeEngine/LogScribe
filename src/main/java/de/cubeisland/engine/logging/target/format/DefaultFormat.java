@@ -8,9 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A Simple Plain Text Format
+ */
 public class DefaultFormat implements Format
 {
     private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();
+
+    private static final String ARG = "\\{\\}";
 
     protected final DateFormat dateFormat;
     private final String format;
@@ -79,8 +84,13 @@ public class DefaultFormat implements Format
         }
     }
 
-    private static final String ARG = "\\{\\}";
-
+    /**
+     * Parses the messageArguments into the message
+     *
+     * @param msg the message
+     * @param args the arguments
+     * @return the resulting message
+     */
     public static String parseArgs(String msg, Object... args)
     {
         if (args == null || args.length == 0)

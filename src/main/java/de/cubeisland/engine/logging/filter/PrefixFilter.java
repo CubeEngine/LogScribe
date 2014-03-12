@@ -24,6 +24,9 @@ package de.cubeisland.engine.logging.filter;
 
 import de.cubeisland.engine.logging.LogEntry;
 
+/**
+ * Appends a prefix to all messages.
+ */
 public class PrefixFilter implements LogFilter
 {
     private final String prefix;

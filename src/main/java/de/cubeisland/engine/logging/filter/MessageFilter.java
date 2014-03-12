@@ -24,6 +24,7 @@ package de.cubeisland.engine.logging.filter;
 
 import de.cubeisland.engine.logging.LogEntry;
 
+// TODO implement me
 public class MessageFilter implements LogFilter
 {
     public boolean accept(LogEntry entry)

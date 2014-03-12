@@ -24,10 +24,13 @@ package de.cubeisland.engine.logging.filter;
 
 import de.cubeisland.engine.logging.LogEntry;
 
+/**
+ * Filters through LogEntries that have a Throwable
+ */
 public class ExceptionFilter implements LogFilter
 {
     public boolean accept(LogEntry entry)
     {
-        return entry.getThrowable() != null;
+        return entry.hasThrowable();
     }
 }

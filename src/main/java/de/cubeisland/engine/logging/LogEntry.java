@@ -24,14 +24,26 @@ package de.cubeisland.engine.logging;
 
 import java.util.Date;
 
+/**
+ * A LogEntry with LogLevel, Message, Arguments, Throwable and Date
+ */
 public class LogEntry
 {
     private LogLevel level;
-    private Throwable throwable;
     private String message;
     private Object[] args;
+    private Throwable throwable;
     private Date date;
 
+    /**
+     * Creates a new LogEntry
+     *
+     * @param level the logLevel
+     * @param throwable the throwable (can be null)
+     * @param message the message
+     * @param args the messageArguments
+     * @param date the date
+     */
     public LogEntry(LogLevel level, Throwable throwable, String message, Object[] args, Date date)
     {
         this.level = level;
@@ -41,53 +53,113 @@ public class LogEntry
         this.date = date;
     }
 
+    /**
+     * Returns the LogLevel of this LogEntry
+     *
+     * @return the LogLevel
+     */
     public LogLevel getLevel()
     {
         return level;
     }
 
+    /**
+     * Sets the LogLevel of this LogEntry
+     *
+     * @param level the logLevel to set
+     */
     public void setLevel(LogLevel level)
     {
         this.level = level;
     }
 
+    /**
+     * Returns the Throwable of this LogEntry
+     *
+     * @return the throwable or null
+     */
     public Throwable getThrowable()
     {
         return throwable;
     }
 
+    /**
+     * Sets the Throwable of this LogEntry
+     *
+     * @param throwable the throwable to set
+     */
     public void setThrowable(Throwable throwable)
     {
         this.throwable = throwable;
     }
 
+    /**
+     * Returns the Message of this LogEntry
+     *
+     * @return the message
+     */
     public String getMessage()
     {
         return message;
     }
 
+    /**
+     * Sets the Message of this LogEntry
+     *
+     * @param message the message to set
+     */
     public void setMessage(String message)
     {
         this.message = message;
     }
 
+    /**
+     * Returns the Arguments of this LogEntry
+     *
+     * @return the arguments
+     */
     public Object[] getArgs()
     {
         return args;
     }
 
-    public Date getDate()
-    {
-        return date;
-    }
-
+    /**
+     * Sets the Arguments of this LogEntry
+     *
+     * @param args the arguments
+     */
     public void setArgs(Object[] args)
     {
         this.args = args;
     }
 
+    /**
+     * Returns the Date of this LogEntry
+     *
+     * @return the date
+     */
+    public Date getDate()
+    {
+        return date;
+    }
+
+    /**
+     * Creates an identical copy of this LogEntry
+     *
+     * @return the copy
+     */
     LogEntry copy()
     {
         return new LogEntry(this.getLevel(), this.getThrowable(), this.getMessage(), this.getArgs(), this.getDate());
+    }
+
+    /**
+     * Returns true if this LogEntry has a Throwable
+     *
+     * @return whether this LogEntry has a Throwable
+     */
+    public boolean hasThrowable()
+    {
+        return throwable != null;
     }
 }
