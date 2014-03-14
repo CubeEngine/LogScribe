@@ -26,7 +26,11 @@ import de.cubeisland.engine.logging.target.proxy.LogProxyTarget;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
+/**
+ * A Logger with a list of targets used to publish LogEntries
+ */
 public class Log extends LogBase
 {
     private final LogFactory factory;
@@ -34,35 +38,63 @@ public class Log extends LogBase
     private final Class<?> clazz;
     private final Date birthdate = new Date(System.currentTimeMillis());
 
-    private final LinkedList<LogTarget> targets = new LinkedList<LogTarget>();
+    private final List<LogTarget> targets = new LinkedList<LogTarget>();
 
-    public Log(LogFactory factory, Class<?> clazz, String id)
+    Log(LogFactory factory, Class<?> clazz, String id)
     {
         this.factory = factory;
         this.id = id;
         this.clazz = clazz;
     }
 
+    /**
+     * Returns the Class this Logger was created for
+     *
+     * @return the class this Logger was created for
+     */
     Class<?> getClazz()
     {
         return this.clazz;
     }
 
+    /**
+     * Returns the id of this logger
+     *
+     * @return the id
+     */
     public String getId()
     {
         return id;
     }
+
+    /**
+     * Returns the creation date of this Logger
+     *
+     * @return the creation date if this Logger
+     */
     public Date getBirthdate()
     {
         return birthdate;
     }
 
+    /**
+     * Adds a LogTarget
+     *
+     * @param target the target
+     * @return fluent interface
+     */
     public Log addTarget(LogTarget target)
     {
         this.targets.add(target);
         return this;
     }
 
+    /**
+     * Adds a ProxyTarget for an other Logger
+     *
+     * @param log the logger to delegate to
+     * @return the created LogTarget
+     */
     public LogTarget addDelegate(Log log)
     {
         LogProxyTarget logProxyTarget = new LogProxyTarget(log);
@@ -70,6 +102,12 @@ public class Log extends LogBase
         return logProxyTarget;
     }
 
+    /**
+     * Removes a LogTarget
+     *
+     * @param target the target to remove
+     * @return fluent interface
+     */
     public Log removeTarget(LogTarget target)
     {
         this.targets.remove(target);
@@ -88,17 +126,16 @@ public class Log extends LogBase
         }
     }
 
+    /**
+     * Shuts down this Logger and all its LogTargets
+     * <p>The LogFactory will no longer return this Logger for its id
+     */
     public void shutdown()
-    {
-        this.factory.shutdown(this);
-    }
-
-    void shutdown0()
     {
         for (LogTarget target : this.targets)
         {
             target.shutdown();
         }
-        // TODO
+        this.factory.remove(this);
     }
 }

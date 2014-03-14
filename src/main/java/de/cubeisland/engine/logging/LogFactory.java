@@ -22,10 +22,38 @@
  */
 package de.cubeisland.engine.logging;
 
+/**
+ * A Factory to create Log Objects
+ */
 public interface LogFactory
 {
+    /**
+     * Gets the Logger for given class and id
+     *
+     * @param clazz the class to get the logger for
+     * @param id the loggers id
+     * @return the loggger
+     */
     Log getLog(Class<?> clazz, String id);
+
+    /**
+     * Gets the Logger for given class and class-name
+     *
+     * @param clazz the class to get the logger for
+     * @return the logger
+     */
     Log getLog(Class<?> clazz);
+
+    /**
+     * Shuts down all this factory and all its Logger
+     */
     void shutdown();
-    void shutdown(Log log);
+
+    /**
+     * Removes given Log from the internal Map
+     * <p>This Method gets called automatically when {@link de.cubeisland.engine.logging.Log#shutdown()} gets called
+     *
+     * @param log the logger to remove
+     */
+    void remove(Log log);
 }

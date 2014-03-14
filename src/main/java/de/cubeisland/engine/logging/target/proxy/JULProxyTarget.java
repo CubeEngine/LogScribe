@@ -2,13 +2,18 @@ package de.cubeisland.engine.logging.target.proxy;
 
 import de.cubeisland.engine.logging.LogEntry;
 import de.cubeisland.engine.logging.LogLevel;
+import de.cubeisland.engine.logging.target.format.DefaultFormat;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+/**
+ * A ProxyTarget for {@link java.util.logging.Logger
+ */
 public class JULProxyTarget extends ProxyTarget<Logger>
 {
     private final Map<LogLevel, Level> cachedJulLevel = new HashMap<LogLevel, Level>();
@@ -21,10 +26,9 @@ public class JULProxyTarget extends ProxyTarget<Logger>
     @Override
     protected void publish(LogEntry entry)
     {
-        // TODO change placeholder for args in msg
-        LogRecord logRecord = new LogRecord(this.getJulLevel(entry.getLevel()), entry.getMessage());
+        String parsedMessage = DefaultFormat.parseArgs(entry.getMessage(), entry.getArgs());
+        LogRecord logRecord = new LogRecord(this.getJulLevel(entry.getLevel()), parsedMessage);
         logRecord.setMillis(entry.getDate().getTime());
-        logRecord.setParameters(entry.getArgs());
         logRecord.setThrown(entry.getThrowable());
         this.handle.log(logRecord);
     }
@@ -57,6 +61,12 @@ public class JULProxyTarget extends ProxyTarget<Logger>
     @Override
     protected void shutdown0()
     {
-        // TODO ?
+        // JUL uses shutdown hooks so instead remove all handlers
+        for (Handler handler : this.handle.getHandlers())
+        {
+            this.handle.removeHandler(handler);
+        }
+        // And Set LogLevel to OFF
+        this.handle.setLevel(Level.OFF);
     }
 }

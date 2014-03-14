@@ -6,6 +6,9 @@ import de.cubeisland.engine.logging.target.format.Format;
 
 import java.io.PrintStream;
 
+/**
+ * A LogTarget publishing to a PrintStream
+ */
 public class PrintTarget extends FormattedTarget<Format>
 {
     public static final PrintTarget STDERR = new PrintTarget(System.err, new DefaultFormat());
@@ -30,5 +33,6 @@ public class PrintTarget extends FormattedTarget<Format>
     @Override
     protected void shutdown0()
     {
+        this.stream.close(); // TODO test if this is working correctly
     }
 }

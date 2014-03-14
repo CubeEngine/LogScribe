@@ -68,10 +68,8 @@ public class DefaultLogFactory implements LogFactory
         this.logs.clear();
     }
 
-    public void shutdown(Log log)
+    public void remove(Log log)
     {
-        log.shutdown0();
         this.logs.get(log.getClazz()).remove(log.getId());
-        // TODO
     }
 }

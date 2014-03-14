@@ -14,7 +14,6 @@ import java.util.Map;
 public class DefaultFormat implements Format
 {
     private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();
-
     private static final String ARG = "\\{\\}";
 
     protected final DateFormat dateFormat;

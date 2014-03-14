@@ -24,25 +24,73 @@ package de.cubeisland.engine.logging;
 
 import java.util.Date;
 
+/**
+ * LogBase provides various logging methods and redirects them to {@link Filterable#log(LogEntry)}
+ */
 public abstract class LogBase extends Filterable
 {
     private static final Object[] NO_ARGS = {};
+
+    /**
+     * Log a message, with no arguments.
+     * <p>
+     * If the logger is currently enabled for the given message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param level the level to log with
+     * @param message the message to log
+     */
     public void log(LogLevel level, String message)
     {
         this.log(level, message, NO_ARGS);
     }
 
-    public void log(LogLevel level, Throwable t, String message)
+    /**
+     * Log a message, with associated Throwable information.
+     * <p>
+     * If the logger is currently enabled for the given message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param level the level to log with
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     */
+    public void log(LogLevel level, Throwable throwable, String message)
     {
-        this.log(level, t, message, NO_ARGS);
+        this.log(level, throwable, message, NO_ARGS);
     }
 
-    public void log(LogLevel level, String message, Object... args)
+    /**
+     * Log a message, with an array of object arguments.
+     * <p>
+     * If the logger is currently enabled for the given message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param level the level to log with
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void log(LogLevel level, String message, Object... arguments)
     {
-        this.log(level, null, message, args);
+        this.log(level, null, message, arguments);
     }
 
-    public void log(LogLevel level, Throwable t, String message, Object... args)
+    /**
+     * Log a message, with an array of object arguments and associated Throwable information.
+     * <p>
+     * If the logger is currently enabled for the given message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param level the level to log with
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void log(LogLevel level, Throwable throwable, String message, Object... arguments)
     {
         // this is copied from log(LogEntry) to prevent unnecessary object creation
         if (level.compareTo(this.level) < 0)
@@ -50,107 +98,306 @@ public abstract class LogBase extends Filterable
             return;
         }
 
-        this.log(new LogEntry(level, t, message, args, new Date()));
+        this.log(new LogEntry(level, throwable, message, arguments, new Date()));
     }
 
+    /**
+     * Log a TRACE message.
+     * <p>
+     * If the logger is currently enabled for the TRACE message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     */
     public void trace(String message)
     {
         this.trace(message, NO_ARGS);
     }
 
-    public void trace(Throwable t, String message)
+    /**
+     * Log a TRACE message, with associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the TRACE message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     */
+    public void trace(Throwable throwable, String message)
     {
-        this.trace(t, message, NO_ARGS);
+        this.trace(throwable, message, NO_ARGS);
     }
 
-    public void trace(String message, Object... args)
+    /**
+     * Log a TRACE message, with an array of object arguments.
+     * <p>
+     * If the logger is currently enabled for the TRACE message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void trace(String message, Object... arguments)
     {
-        this.log(LogLevel.TRACE, message, args);
+        this.log(LogLevel.TRACE, message, arguments);
     }
 
-    public void trace(Throwable t, String message, Object... args)
+    /**
+     * Log a TRACE message, with an array of object arguments and associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the TRACE message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void trace(Throwable throwable, String message, Object... arguments)
     {
-        this.log(LogLevel.TRACE, t, message, args);
+        this.log(LogLevel.TRACE, throwable, message, arguments);
     }
 
+    /**
+     * Log a DEBUG message.
+     * <p>
+     * If the logger is currently enabled for the DEBUG message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     */
     public void debug(String message)
     {
         this.debug(message, NO_ARGS);
     }
 
-    public void debug(Throwable t, String message)
+    /**
+     * Log a DEBUG message, with associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the DEBUG message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     */
+    public void debug(Throwable throwable, String message)
     {
-        this.debug(t, message, NO_ARGS);
+        this.debug(throwable, message, NO_ARGS);
     }
 
-    public void debug(String message, Object... args)
+    /**
+     * Log a DEBUG message, with an array of object arguments.
+     * <p>
+     * If the logger is currently enabled for the DEBUG message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void debug(String message, Object... arguments)
     {
-        this.log(LogLevel.DEBUG, message, args);
+        this.log(LogLevel.DEBUG, message, arguments);
     }
 
-    public void debug(Throwable t, String message, Object... args)
+    /**
+     * Log a DEBUG message, with an array of object arguments and associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the DEBUG message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void debug(Throwable throwable, String message, Object... arguments)
     {
-        this.log(LogLevel.DEBUG, t, message, args);
+        this.log(LogLevel.DEBUG, throwable, message, arguments);
     }
 
+    /**
+     * Log a INFO message.
+     * <p>
+     * If the logger is currently enabled for the INFO message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     */
     public void info(String message)
     {
         this.info(message, NO_ARGS);
     }
 
-    public void info(Throwable t, String message)
+    /**
+     * Log a INFO message, with associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the INFO message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     */
+    public void info(Throwable throwable, String message)
     {
-        this.info(t, message, NO_ARGS);
+        this.info(throwable, message, NO_ARGS);
     }
 
-    public void info(String message, Object... args)
+    /**
+     * Log a INFO message, with an array of object arguments.
+     * <p>
+     * If the logger is currently enabled for the INFO message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void info(String message, Object... arguments)
     {
-        this.log(LogLevel.INFO, message, args);
+        this.log(LogLevel.INFO, message, arguments);
     }
 
-    public void info(Throwable t, String message, Object... args)
+    /**
+     * Log a INFO message, with an array of object arguments and associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the INFO message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void info(Throwable throwable, String message, Object... arguments)
     {
-        this.log(LogLevel.INFO, t, message, args);
+        this.log(LogLevel.INFO, throwable, message, arguments);
     }
 
+    /**
+     * Log a WARN message.
+     * <p>
+     * If the logger is currently enabled for the WARN message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     */
     public void warn(String message)
     {
         this.warn(message, NO_ARGS);
     }
 
-    public void warn(Throwable t, String message)
+    /**
+     * Log a WARN message, with associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the WARN message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     */
+    public void warn(Throwable throwable, String message)
     {
-        this.warn(t, message, NO_ARGS);
+        this.warn(throwable, message, NO_ARGS);
     }
 
-    public void warn(String message, Object... args)
+    /**
+     * Log a WARN message, with an array of object arguments.
+     * <p>
+     * If the logger is currently enabled for the WARN message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void warn(String message, Object... arguments)
     {
-        this.log(LogLevel.WARN, message, args);
+        this.log(LogLevel.WARN, message, arguments);
     }
 
-    public void warn(Throwable t, String message, Object... args)
+    /**
+     * Log a WARN message, with an array of object arguments and associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the WARN message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void warn(Throwable throwable, String message, Object... arguments)
     {
-        this.log(LogLevel.WARN, t, message, args);
+        this.log(LogLevel.WARN, throwable, message, arguments);
     }
 
+    /**
+     * Log a ERROR message.
+     * <p>
+     * If the logger is currently enabled for the ERROR message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     */
     public void error(String message)
     {
         this.error(message, NO_ARGS);
     }
 
-    public void error(Throwable t, String message)
+    /**
+     * Log a ERROR message, with associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the ERROR message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     */
+    public void error(Throwable throwable, String message)
     {
-        this.error(t, message, NO_ARGS);
+        this.error(throwable, message, NO_ARGS);
     }
 
-    public void error(String message, Object... args)
+    /**
+     * Log a ERROR message, with an array of object arguments.
+     * <p>
+     * If the logger is currently enabled for the ERROR message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void error(String message, Object... arguments)
     {
-        this.log(LogLevel.ERROR, message, args);
+        this.log(LogLevel.ERROR, message, arguments);
     }
 
-    public void error(Throwable t, String message, Object... args)
+    /**
+     * Log a ERROR message, with an array of object arguments and associated Throwable information
+     * <p>
+     * If the logger is currently enabled for the ERROR message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void error(Throwable throwable, String message, Object... arguments)
     {
-        this.log(LogLevel.ERROR, t, message, args);
+        this.log(LogLevel.ERROR, throwable, message, arguments);
     }
-
 }

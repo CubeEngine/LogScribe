@@ -26,6 +26,9 @@ public abstract class LogTarget extends Filterable
 {
     private boolean isShutdown = false;
 
+    /**
+     * Shuts down this LogTarget
+     */
     public void shutdown()
     {
         if (!isShutdown)
@@ -35,5 +38,19 @@ public abstract class LogTarget extends Filterable
         }
     }
 
+    @Override
+    public void log(LogEntry entry)
+    {
+        if (this.isShutdown)
+        {
+            return;
+        }
+        super.log(entry);
+    }
+
+    /**
+     * Actual Shutdown Method
+     * <p>Implement as appropriate for the LogTarget
+     */
     protected abstract void shutdown0();
 }
