@@ -9,6 +9,11 @@ import de.cubeisland.engine.logging.LogLevel;
  */
 public class LogProxyTarget extends ProxyTarget<Log>
 {
+    /**
+     * Creates a new ProxyTarget for given Log
+     *
+     * @param handle the Log
+     */
     public LogProxyTarget(Log handle)
     {
         super(handle);

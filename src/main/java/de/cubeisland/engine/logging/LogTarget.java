@@ -22,6 +22,9 @@
  */
 package de.cubeisland.engine.logging;
 
+/**
+ * A Target to publish LogEntries
+ */
 public abstract class LogTarget extends Filterable
 {
     private boolean isShutdown = false;

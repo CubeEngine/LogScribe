@@ -41,6 +41,8 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
     private final ConcurrentLinkedQueue<LogEntry> queue = new ConcurrentLinkedQueue<LogEntry>();
     private Future<?> future;
 
+    private BufferedWriter writer = null;
+
     public AsyncFileTarget(File file, FileFormat format)
     {
         this(file, format, true);
@@ -93,8 +95,6 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
         }
         return this.getWriter();
     }
-
-    private BufferedWriter writer = null;
 
     private BufferedWriter getWriter()
     {

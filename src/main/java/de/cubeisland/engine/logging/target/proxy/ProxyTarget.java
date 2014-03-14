@@ -12,6 +12,11 @@ public abstract class ProxyTarget<T> extends LogTarget
 {
     protected final T handle;
 
+    /**
+     * Creates a new ProxyTarget for given handle
+     *
+     * @param handle the proxied Logger
+     */
     protected ProxyTarget(T handle)
     {
         this.handle = handle;

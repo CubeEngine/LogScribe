@@ -10,6 +10,8 @@ import java.util.Map;
 
 /**
  * A Simple Plain Text Format
+ * <p>
+ * This format allows {msg}, {date} and {level} as macros
  */
 public class DefaultFormat implements Format
 {
@@ -19,6 +21,12 @@ public class DefaultFormat implements Format
     protected final DateFormat dateFormat;
     private final String format;
 
+    /**
+     * Creates a new Format for given FormatString and DateFormat
+     *
+     * @param format the Format String
+     * @param dateFormat the DateFormat
+     */
     public DefaultFormat(String format, DateFormat dateFormat)
     {
         assert format != null : "The format String cannot be null";
@@ -27,11 +35,21 @@ public class DefaultFormat implements Format
         this.dateFormat = dateFormat;
     }
 
+    /**
+     * Creates a new Format for given FormatString with the default SimpleDateFormat
+     *
+     * @param format the Format String
+     */
     public DefaultFormat(String format)
     {
         this(format, new SimpleDateFormat());
     }
 
+    /**
+     * Creates a new Format using this Format String:
+     * <p>{date} [{level}] {msg}
+     * <p>and the default SimpleDateFormat
+     */
     public DefaultFormat()
     {
         this("{date} [{level}] {msg}");

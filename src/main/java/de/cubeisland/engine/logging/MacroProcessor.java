@@ -24,13 +24,24 @@ package de.cubeisland.engine.logging;
 
 import java.util.Map;
 
+/**
+ * A simple macro-processor
+ */
 public class MacroProcessor
 {
-    public static final char MACRO_BEGIN = '{';
-    public static final char MACRO_END = '}';
-    public static final char MACRO_ESCAPE = '\\';
+    private static final char MACRO_BEGIN = '{';
+    private static final char MACRO_END = '}';
+    private static final char MACRO_ESCAPE = '\\';
 
-    public String process(String message, Map<String, Object> args)
+    /**
+     * Processes Macros in a message
+     * <p>e.g.: Replacec {key} with the value of "key" in arguments
+     *
+     * @param message the message
+     * @param arguments the arguments
+     * @return the processed message
+     */
+    public String process(String message, Map<String, Object> arguments)
     {
         StringBuilder finalString = new StringBuilder();
         StringBuilder keyBuffer = null;
@@ -88,7 +99,7 @@ public class MacroProcessor
                         break;
                     }
                     curBuilder = finalString;
-                    Object value = args.get(keyBuffer.toString());
+                    Object value = arguments.get(keyBuffer.toString());
                     keyBuffer = null;
                     if (value != null)
                     {

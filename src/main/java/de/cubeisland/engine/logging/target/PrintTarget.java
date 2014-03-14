@@ -16,6 +16,12 @@ public class PrintTarget extends FormattedTarget<Format>
 
     private final PrintStream stream;
 
+    /**
+     * Creates a new PrintTarget with given PrintStream and Format
+     *
+     * @param stream the PrintStream
+     * @param format the Format
+     */
     public PrintTarget(PrintStream stream, Format format)
     {
         super(format);

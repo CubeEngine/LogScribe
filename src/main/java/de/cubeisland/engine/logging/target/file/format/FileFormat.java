@@ -7,6 +7,15 @@ import de.cubeisland.engine.logging.target.format.Format;
  */
 public interface FileFormat extends Format
 {
+    /**
+     * Appends a Header to the given StringBuilder
+     * @param builder the StringBuilder to append to
+     */
     void writeHeader(StringBuilder builder);
+    /**
+     * Appends a Trailer to the given StringBuilder
+     *
+     * @param builder the StringBuilder to append to
+     */
     void writeTrailer(StringBuilder builder);
 }

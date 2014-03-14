@@ -18,6 +18,11 @@ public class JULProxyTarget extends ProxyTarget<Logger>
 {
     private final Map<LogLevel, Level> cachedJulLevel = new HashMap<LogLevel, Level>();
 
+    /**
+     * Creates a new ProxyTarget for given Logger
+     *
+     * @param logger the Logger
+     */
     public JULProxyTarget(Logger logger)
     {
         super(logger);

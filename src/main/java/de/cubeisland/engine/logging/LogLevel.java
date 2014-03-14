@@ -25,6 +25,9 @@ package de.cubeisland.engine.logging;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A LogLevel used to define if a Logger will Log a LogEntry
+ */
 public class LogLevel implements Comparable<LogLevel>
 {
     private static Map<String, LogLevel> map = new HashMap<String, LogLevel>();
@@ -43,18 +46,37 @@ public class LogLevel implements Comparable<LogLevel>
     private final String name;
     private final int priority;
 
+    /**
+     * Creates a new LogLevel with given name and priority
+     *
+     * @param name the name
+     * @param priority the priority
+     */
     public LogLevel(String name, int priority)
     {
+        if (map.containsKey(name.toUpperCase()))
+        {
+            throw new IllegalArgumentException("There is already a LogLevel named " + name);
+        }
         this.name = name;
         this.priority = priority;
         map.put(name.toUpperCase(), this);
     }
 
+    /**
+     * Returns the name of this LogLevel
+     * @return the name of this LogLevel
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * Returns the priority of this LogLevel
+     *
+     * @return the priority of this LogLevel
+     */
     public int getPriority()
     {
         return priority;
@@ -73,6 +95,12 @@ public class LogLevel implements Comparable<LogLevel>
         return 0;
     }
 
+    /**
+     * Returns the corresponding LogLevel or null if not found
+     *
+     * @param name the name
+     * @return the corresponding LogLevel or null
+     */
     public static LogLevel toLevel(String name)
     {
         return map.get(name.toUpperCase());

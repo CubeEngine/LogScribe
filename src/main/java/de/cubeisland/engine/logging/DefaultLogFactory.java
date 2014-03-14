@@ -25,10 +25,16 @@ package de.cubeisland.engine.logging;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * The default LogFactory implementation
+ */
 public class DefaultLogFactory implements LogFactory
 {
     private final Map<Class<?>, Map<String, Log>> logs;
 
+    /**
+     * Creates a new LogFactory Instance
+     */
     public DefaultLogFactory()
     {
         this.logs = new ConcurrentHashMap<Class<?>, Map<String, Log>>();
