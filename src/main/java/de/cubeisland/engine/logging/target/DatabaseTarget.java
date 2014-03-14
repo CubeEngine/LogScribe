@@ -12,7 +12,7 @@ public class DatabaseTarget extends LogTarget
     }
 
     @Override
-    protected void shutdown0()
+    protected void onShutdown()
     {
     }
 }

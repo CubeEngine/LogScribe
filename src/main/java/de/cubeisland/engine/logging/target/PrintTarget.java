@@ -37,7 +37,7 @@ public class PrintTarget extends FormattedTarget<Format>
     }
 
     @Override
-    protected void shutdown0()
+    protected void onShutdown()
     {
         this.stream.close(); // TODO test if this is working correctly
     }

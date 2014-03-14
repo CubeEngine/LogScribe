@@ -12,7 +12,7 @@ public class EmailTarget extends LogTarget
     }
 
     @Override
-    protected void shutdown0()
+    protected void onShutdown()
     {
     }
 }

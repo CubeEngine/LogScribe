@@ -1,6 +1,7 @@
 package de.cubeisland.engine.logging.target.file;
 
 import de.cubeisland.engine.logging.LogEntry;
+import de.cubeisland.engine.logging.LoggingException;
 import de.cubeisland.engine.logging.target.FormattedTarget;
 import de.cubeisland.engine.logging.target.file.cycler.CloseCallback;
 import de.cubeisland.engine.logging.target.file.cycler.LogCycler;
@@ -100,60 +101,48 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
     {
         if (writer == null)
         {
-            FileOutputStream fos = null;
             try
             {
-                fos = new FileOutputStream(this.file, this.append);
-            }
-            catch (FileNotFoundException e)
-            {
-                // TODO handle me (directory missing?)
-            }
-            // TODO FileLock
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            this.writer = new BufferedWriter(osw);
-            StringBuilder sb = new StringBuilder();
-            this.format.writeHeader(sb);
-            if (!sb.toString().isEmpty())
-            {
-                try
+                FileOutputStream fos = new FileOutputStream(this.file, this.append);
+                // TODO FileLock
+                OutputStreamWriter osw = new OutputStreamWriter(fos);
+                this.writer = new BufferedWriter(osw);
+                StringBuilder sb = new StringBuilder();
+                this.format.writeHeader(sb);
+                if (!sb.toString().isEmpty())
                 {
                     writer.write(sb.toString());
                 }
-                catch (IOException e)
-                {
-                    // TODO handle me
-                }
             }
-
+            catch (FileNotFoundException e)
+            {
+                throw new LoggingException(e);
+            }
+            catch (IOException e)
+            {
+                throw new LoggingException("Error while writing Header", e);
+            }
         }
         return writer;
     }
 
     private void publish0()
     {
-        BufferedWriter bWriter = this.open();
-        while (!this.queue.isEmpty())
-        {
-            LogEntry poll = queue.poll();
-            StringBuilder sb = new StringBuilder();
-            this.format.writeEntry(poll, sb);
-            try
-            {
-                bWriter.write(sb.toString());
-            }
-            catch (IOException e)
-            {
-                // TODO handle me
-            }
-        }
         try
         {
+            BufferedWriter bWriter = this.open();
+            while (!this.queue.isEmpty())
+            {
+                LogEntry poll = queue.poll();
+                StringBuilder sb = new StringBuilder();
+                this.format.writeEntry(poll, sb);
+                bWriter.write(sb.toString());
+            }
             bWriter.flush();
         }
         catch (IOException e)
         {
-            // TODO handle me
+            throw new LoggingException("Error while publishing LogEntry", e);
         }
     }
 
@@ -168,13 +157,16 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
             BufferedWriter writer = this.getWriter();
             StringBuilder sb = new StringBuilder();
             this.format.writeTrailer(sb);
-            writer.write(sb.toString());
+            if (!sb.toString().isEmpty())
+            {
+                writer.write(sb.toString());
+            }
             writer.close();
             this.writer = null;
         }
         catch (IOException e)
         {
-            // TODO handle me
+            throw new LoggingException("Error while writing Trailer", e);
         }
     }
 
@@ -210,25 +202,35 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
     }
 
     @Override
-    protected void shutdown0()
+    protected void onShutdown()
+    {
+        try
+        {
+            this.await(5, TimeUnit.SECONDS);
+        }
+        catch (InterruptedException e)
+        {
+            throw new LoggingException("Error while waiting to finish logging", e);
+        }
+        catch (TimeoutException e)
+        {
+            throw new LoggingException("Error while waiting to finish logging", e);
+        }
+        catch (ExecutionException e)
+        {
+            throw new LoggingException("Error while waiting to finish logging", e);
+        }
+        finally
+        {
+            this.close();
+        }
+    }
+
+    protected void await(int time, TimeUnit unit) throws InterruptedException, TimeoutException, ExecutionException
     {
         if (!(this.future == null || this.future.isDone()))
         {
-            try
-            {
-                future.get(5, TimeUnit.SECONDS); // check for logging queue to empty
-            }
-            catch (InterruptedException e)
-            {
-            }
-            catch (ExecutionException e)
-            {
-            }
-            catch (TimeoutException e)
-            {
-            }
-            // TODO handle Exceptions
+            future.get(time, unit); // check for logging queue to empty
         }
-        this.close();
     }
 }

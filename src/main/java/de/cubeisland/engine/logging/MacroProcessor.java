@@ -35,7 +35,7 @@ public class MacroProcessor
 
     /**
      * Processes Macros in a message
-     * <p>e.g.: Replacec {key} with the value of "key" in arguments
+     * <p>e.g.: Replaces {key} with the value of "key" in arguments
      *
      * @param message the message
      * @param arguments the arguments

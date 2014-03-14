@@ -64,7 +64,7 @@ public class JULProxyTarget extends ProxyTarget<Logger>
     }
 
     @Override
-    protected void shutdown0()
+    protected void onShutdown()
     {
         // JUL uses shutdown hooks so instead remove all handlers
         for (Handler handler : this.handle.getHandlers())

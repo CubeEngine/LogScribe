@@ -32,17 +32,17 @@ public abstract class LogTarget extends Filterable
     /**
      * Shuts down this LogTarget
      */
-    public void shutdown()
+    public synchronized void shutdown()
     {
         if (!isShutdown)
         {
-            this.shutdown0();
             this.isShutdown = true;
+            this.onShutdown();
         }
     }
 
     @Override
-    public void log(LogEntry entry)
+    public synchronized void log(LogEntry entry)
     {
         if (this.isShutdown)
         {
@@ -55,5 +55,5 @@ public abstract class LogTarget extends Filterable
      * Actual Shutdown Method
      * <p>Implement as appropriate for the LogTarget
      */
-    protected abstract void shutdown0();
+    protected abstract void onShutdown();
 }
