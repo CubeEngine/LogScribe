@@ -15,5 +15,5 @@ public interface LogCycler
      *
      * @return the new file
      */
-    File cycle(File file, Runnable closeCallBack);
+    File cycle(File file, CloseCallback closeCallBack);
 }

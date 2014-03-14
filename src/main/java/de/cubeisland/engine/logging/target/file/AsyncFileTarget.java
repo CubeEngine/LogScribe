@@ -2,6 +2,7 @@ package de.cubeisland.engine.logging.target.file;
 
 import de.cubeisland.engine.logging.LogEntry;
 import de.cubeisland.engine.logging.target.FormattedTarget;
+import de.cubeisland.engine.logging.target.file.cycler.CloseCallback;
 import de.cubeisland.engine.logging.target.file.cycler.LogCycler;
 import de.cubeisland.engine.logging.target.file.format.FileFormat;
 
@@ -20,7 +21,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class AsyncFileTarget extends FormattedTarget<FileFormat>
+public class AsyncFileTarget extends FormattedTarget<FileFormat> implements CloseCallback
 {
     private File file;
     private final boolean append;
@@ -34,14 +35,6 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
         public void run()
         {
             publish0();
-        }
-    };
-
-    private final Runnable closeCallBack = new Runnable()
-    {
-        public void run()
-        {
-            close();
         }
     };
 
@@ -72,11 +65,21 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
         this.cycler = cycler;
     }
 
+    /**
+     * Returns the File this FileTarget writes into
+     *
+     * @return the file
+     */
     public File getFile()
     {
         return this.file;
     }
 
+    /**
+     * Returns true if this FileTarget appends to the previous file
+     *
+     * @return false if the previous file is not appended
+     */
     public boolean isAppend()
     {
         return append;
@@ -86,7 +89,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
     {
         if (this.cycler != null)
         {
-            this.file = this.cycler.cycle(this.file, closeCallBack);
+            this.file = this.cycler.cycle(this.file, this);
         }
         return this.getWriter();
     }
@@ -154,8 +157,12 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
         }
     }
 
-    private void close()
+    public void close()
     {
+        if (writer == null)
+        {
+            return;
+        }
         try
         {
             BufferedWriter writer = this.getWriter();
@@ -166,7 +173,9 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat>
             this.writer = null;
         }
         catch (IOException e)
-        {} // TODO handle me
+        {
+            // TODO handle me
+        }
     }
 
     private void publish()

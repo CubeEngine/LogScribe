@@ -33,65 +33,95 @@ public class MacroProcessor
     public String process(String message, Map<String, Object> args)
     {
         StringBuilder finalString = new StringBuilder();
-
+        StringBuilder keyBuffer = null;
+        StringBuilder curBuilder = finalString;
+        boolean escape = false;
         char[] chars = message.toCharArray();
-        for (int i = 0; i < chars.length; ++i)
+        for (char curChar : chars)
         {
-            switch (chars[i])
+            if (curChar == MACRO_ESCAPE)
             {
-                case MACRO_ESCAPE:
-                    if (i + 1 < chars.length)
+                if (escape)
+                {
+                    curBuilder.append(curChar);
+                    escape = false;
+                }
+                else
+                {
+                    escape = true;
+                }
+            }
+            else if (curChar == MACRO_BEGIN)
+            {
+                if (curBuilder == keyBuffer)
+                {
+                    // macro begin in macro
+                    if (escape)
                     {
-                        finalString.append(chars[++i]);
+                        curBuilder.append(MACRO_ESCAPE);
+                        escape = false;
+                    }
+                    curBuilder.append(curChar);
+                }
+                else
+                {
+                    // macro begin
+                    if (escape)
+                    {
+                        curBuilder.append(curChar);
+                        escape = false;
                         break;
                     }
-                case MACRO_BEGIN:
-                    if (i + 2 < chars.length)
-                    {
-                        int newOffset = replaceVar(finalString, chars, i, args);
-                        if (newOffset > i)
-                        {
-                            i = newOffset;
-                            break;
-                        }
-                    }
-                default:
-                    finalString.append(chars[i]);
-                    break;
+                    keyBuffer = new StringBuilder();
+                    curBuilder = keyBuffer;
+                }
             }
-        }
-
-        return finalString.toString();
-    }
-
-    private int replaceVar(StringBuilder out, char[] in, int offset, Map<String, Object> values)
-    {
-        int i = offset + 1;
-        StringBuilder name = new StringBuilder();
-        boolean done = false;
-        for (; i < in.length && !done; ++i)
-        {
-            if (in[i] == MACRO_END)
+            else if (curChar == MACRO_END)
             {
-                done = true;
-                --i;
+                if (curBuilder == keyBuffer)
+                {
+                    // macro end
+                    if (escape)
+                    {
+                        curBuilder.append(curChar);
+                        escape = false;
+                        break;
+                    }
+                    curBuilder = finalString;
+                    Object value = args.get(keyBuffer.toString());
+                    keyBuffer = null;
+                    if (value != null)
+                    {
+                        curBuilder.append(String.valueOf(value));
+                    }
+                }
+                else
+                {
+                    // macro end outside of macro
+                    if (escape)
+                    {
+                        curBuilder.append(MACRO_ESCAPE);
+                        escape = false;
+                    }
+                    curBuilder.append(curChar);
+                }
             }
             else
             {
-                name.append(in[i]);
+                if (escape)
+                {
+                    curBuilder.append(MACRO_ESCAPE);
+                    escape = false;
+                }
+                curBuilder.append(curChar);
             }
         }
-
-        Object value = values.get(name.toString());
-        if (value != null)
+        if (escape)
         {
-            out.append(String.valueOf(value));
-        }
-        else
-        {
-            return offset;
+            // if last character was escape readd
+            finalString.append(MACRO_ESCAPE);
         }
 
-        return i;
+        return finalString.toString();
     }
 }

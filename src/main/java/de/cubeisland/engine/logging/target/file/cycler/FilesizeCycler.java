@@ -39,11 +39,11 @@ public class FilesizeCycler implements LogCycler
         this.dateFormat = dateFormat;
     }
 
-    public File cycle(File file, Runnable closeCallBack)
+    public File cycle(File file, CloseCallback closeCallBack)
     {
         if (file.length() >= bytes)
         {
-            closeCallBack.run(); // Close open stream
+            closeCallBack.close(); // Close open stream
             File directory = file.getParentFile();
             String name = file.getName();
             String ending = "";

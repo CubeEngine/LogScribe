@@ -49,7 +49,7 @@ public class LogEntry
         this.level = level;
         this.throwable = throwable;
         this.message = message;
-        this.args = args;
+        this.args = args == null ? null : args.clone();
         this.date = date;
     }
 
@@ -130,7 +130,7 @@ public class LogEntry
      */
     public void setArgs(Object[] args)
     {
-        this.args = args;
+        this.args = args == null ? null : args.clone();
     }
 
     /**
