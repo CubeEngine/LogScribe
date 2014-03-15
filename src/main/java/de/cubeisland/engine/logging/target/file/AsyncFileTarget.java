@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -105,7 +106,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
             {
                 FileOutputStream fos = new FileOutputStream(this.file, this.append);
                 // TODO FileLock
-                OutputStreamWriter osw = new OutputStreamWriter(fos);
+                OutputStreamWriter osw = new OutputStreamWriter(fos, Charset.forName("UTF-8"));
                 this.writer = new BufferedWriter(osw);
                 StringBuilder sb = new StringBuilder();
                 this.format.writeHeader(sb);
@@ -154,14 +155,14 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
         }
         try
         {
-            BufferedWriter writer = this.getWriter();
+            BufferedWriter bWriter = this.getWriter();
             StringBuilder sb = new StringBuilder();
             this.format.writeTrailer(sb);
             if (!sb.toString().isEmpty())
             {
-                writer.write(sb.toString());
+                bWriter.write(sb.toString());
             }
-            writer.close();
+            bWriter.close();
             this.writer = null;
         }
         catch (IOException e)

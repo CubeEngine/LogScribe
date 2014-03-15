@@ -81,10 +81,12 @@ public class MacroProcessor
                     {
                         curBuilder.append(curChar);
                         escape = false;
-                        break;
                     }
-                    keyBuffer = new StringBuilder();
-                    curBuilder = keyBuffer;
+                    else
+                    {
+                        keyBuffer = new StringBuilder();
+                        curBuilder = keyBuffer;
+                    }
                 }
             }
             else if (curChar == MACRO_END)
@@ -96,14 +98,16 @@ public class MacroProcessor
                     {
                         curBuilder.append(curChar);
                         escape = false;
-                        break;
                     }
-                    curBuilder = finalString;
-                    Object value = arguments.get(keyBuffer.toString());
-                    keyBuffer = null;
-                    if (value != null)
+                    else
                     {
-                        curBuilder.append(String.valueOf(value));
+                        curBuilder = finalString;
+                        Object value = arguments.get(keyBuffer.toString());
+                        keyBuffer = null;
+                        if (value != null)
+                        {
+                            curBuilder.append(String.valueOf(value));
+                        }
                     }
                 }
                 else

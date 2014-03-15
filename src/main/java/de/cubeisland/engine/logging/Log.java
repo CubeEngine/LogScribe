@@ -74,7 +74,7 @@ public class Log extends LogBase
      */
     public Date getBirthdate()
     {
-        return birthdate;
+        return new Date(birthdate.getTime());
     }
 
     /**

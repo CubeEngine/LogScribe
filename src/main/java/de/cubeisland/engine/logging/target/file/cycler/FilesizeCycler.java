@@ -1,5 +1,6 @@
 package de.cubeisland.engine.logging.target.file.cycler;
 
+import de.cubeisland.engine.logging.LoggingException;
 import de.cubeisland.engine.logging.MacroProcessor;
 
 import java.io.File;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class FilesizeCycler implements LogCycler
 {
     private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();
+    public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd--HHmm";
 
     // {i} {date} {name} {ending}
 
@@ -24,12 +26,12 @@ public class FilesizeCycler implements LogCycler
 
     public FilesizeCycler(long bytes)
     {
-        this(bytes, "{name}_{date}{_i}{ending}", new SimpleDateFormat("yyyy-MM-dd--HHmm"));
+        this(bytes, "{name}_{date}{_i}{ending}", new SimpleDateFormat(DEFAULT_DATE_PATTERN));
     }
 
     public FilesizeCycler(long bytes, String format)
     {
-        this(bytes, format, new SimpleDateFormat("yyyy-MM-dd--HHmm"));
+        this(bytes, format, new SimpleDateFormat(DEFAULT_DATE_PATTERN));
     }
 
     public FilesizeCycler(long bytes, String format, DateFormat dateFormat)
@@ -68,7 +70,10 @@ public class FilesizeCycler implements LogCycler
             }
             if (!cycled.getParentFile().exists())
             {
-                cycled.getParentFile().mkdirs();
+                if (!cycled.getParentFile().mkdirs())
+                {
+                    throw new LoggingException("Could not create the parent-folder for file to cycle");
+                }
             }
             if (!file.renameTo(cycled))
             {

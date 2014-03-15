@@ -68,15 +68,20 @@ public class DefaultFormat implements Format
         map.put("level", logEntry.getLevel().getName());
         message = MACRO_PROCESSOR.process(format, map);
         builder.append(message).append("\n");
-        Throwable throwable = logEntry.getThrowable();
-        if (throwable != null)
+        writeThrowable(logEntry, builder);
+    }
+
+    private void writeThrowable(LogEntry logEntry, StringBuilder builder)
+    {
+        if (logEntry.hasThrowable())
         {
+            Throwable throwable = logEntry.getThrowable();
             if (throwable.getLocalizedMessage() != null &&
                !throwable.getLocalizedMessage().equals(logEntry.getMessage()))
             {
                 builder.append(logEntry.getMessage()).append("\n");
             }
-            while (true)
+            do
             {
                 builder.append(throwable.getClass().getName());
                 if (throwable.getLocalizedMessage() != null)
@@ -88,16 +93,13 @@ public class DefaultFormat implements Format
                 {
                     builder.append("\tat ").append(element).append("\n");
                 }
-                if (throwable.getCause() != null)
+                throwable = throwable.getCause();
+                if (throwable != null)
                 {
                     builder.append("Caused by: ");
-                    throwable = throwable.getCause();
-                }
-                else
-                {
-                    return;
                 }
             }
+            while (throwable != null);
         }
     }
 
