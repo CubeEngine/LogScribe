@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * A Simple Plain Text Format
- * <p>
+ * <p/>
  * This format allows {msg}, {date} and {level} as macros
  */
 public class DefaultFormat implements Format
@@ -24,7 +24,7 @@ public class DefaultFormat implements Format
     /**
      * Creates a new Format for given FormatString and DateFormat
      *
-     * @param format the Format String
+     * @param format     the Format String
      * @param dateFormat the DateFormat
      */
     public DefaultFormat(String format, DateFormat dateFormat)
@@ -76,8 +76,7 @@ public class DefaultFormat implements Format
         if (logEntry.hasThrowable())
         {
             Throwable throwable = logEntry.getThrowable();
-            if (throwable.getLocalizedMessage() != null &&
-               !throwable.getLocalizedMessage().equals(logEntry.getMessage()))
+            if (throwable.getLocalizedMessage() != null && !throwable.getLocalizedMessage().equals(logEntry.getMessage()))
             {
                 builder.append(logEntry.getMessage()).append("\n");
             }
@@ -106,8 +105,9 @@ public class DefaultFormat implements Format
     /**
      * Parses the messageArguments into the message
      *
-     * @param msg the message
+     * @param msg  the message
      * @param args the arguments
+     *
      * @return the resulting message
      */
     public static String parseArgs(String msg, Object... args)
@@ -133,7 +133,7 @@ public class DefaultFormat implements Format
         {
             if (result.contains("{"))
             {
-                result = result.replaceAll("\\{" + i + "\\}", String.valueOf(args[i]).replace("\\","\\\\"));
+                result = result.replaceAll("\\{" + i + "\\}", String.valueOf(args[i]).replace("\\", "\\\\"));
             }
             else
             {

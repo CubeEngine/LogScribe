@@ -38,11 +38,11 @@ public class LogEntry
     /**
      * Creates a new LogEntry
      *
-     * @param level the logLevel
+     * @param level     the logLevel
      * @param throwable the throwable (can be null)
-     * @param message the message
-     * @param args the messageArguments
-     * @param date the date
+     * @param message   the message
+     * @param args      the messageArguments
+     * @param date      the date
      */
     public LogEntry(LogLevel level, Throwable throwable, String message, Object[] args, Date date)
     {

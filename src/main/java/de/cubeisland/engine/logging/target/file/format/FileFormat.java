@@ -9,6 +9,7 @@ public interface FileFormat extends Format
 {
     /**
      * Appends a Header to the given StringBuilder
+     *
      * @param builder the StringBuilder to append to
      */
     void writeHeader(StringBuilder builder);

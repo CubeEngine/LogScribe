@@ -6,6 +6,7 @@ import de.cubeisland.engine.logging.LogTarget;
 /**
  * An abstract proxy target
  * <p>This Target delegates a LogEntry to an other Logger
+ *
  * @param <T>
  */
 public abstract class ProxyTarget<T> extends LogTarget

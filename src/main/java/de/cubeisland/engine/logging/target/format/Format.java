@@ -11,7 +11,7 @@ public interface Format
      * Writes the contents of the logEntry into the StringBuilder
      *
      * @param logEntry the logEntry
-     * @param builder the builder
+     * @param builder  the builder
      */
     void writeEntry(LogEntry logEntry, StringBuilder builder);
 }

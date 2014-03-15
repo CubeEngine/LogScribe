@@ -37,8 +37,9 @@ public class MacroProcessor
      * Processes Macros in a message
      * <p>e.g.: Replaces {key} with the value of "key" in arguments
      *
-     * @param message the message
+     * @param message   the message
      * @param arguments the arguments
+     *
      * @return the processed message
      */
     public String process(String message, Map<String, Object> arguments)

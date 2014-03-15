@@ -83,6 +83,7 @@ public class Log extends LogBase
      * Adds a LogTarget
      *
      * @param target the target
+     *
      * @return fluent interface
      */
     public Log addTarget(LogTarget target)
@@ -95,6 +96,7 @@ public class Log extends LogBase
      * Adds a ProxyTarget for an other Logger
      *
      * @param log the logger to delegate to
+     *
      * @return the created LogTarget
      */
     public LogTarget addDelegate(Log log)
@@ -108,6 +110,7 @@ public class Log extends LogBase
      * Removes a LogTarget
      *
      * @param target the target to remove
+     *
      * @return fluent interface
      */
     public Log removeTarget(LogTarget target)

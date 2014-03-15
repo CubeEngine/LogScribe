@@ -49,7 +49,7 @@ public class LogLevel implements Comparable<LogLevel>
     /**
      * Creates a new LogLevel with given name and priority
      *
-     * @param name the name
+     * @param name     the name
      * @param priority the priority
      */
     public LogLevel(String name, int priority)
@@ -65,6 +65,7 @@ public class LogLevel implements Comparable<LogLevel>
 
     /**
      * Returns the name of this LogLevel
+     *
      * @return the name of this LogLevel
      */
     public String getName()
@@ -99,6 +100,7 @@ public class LogLevel implements Comparable<LogLevel>
      * Returns the corresponding LogLevel or null if not found
      *
      * @param name the name
+     *
      * @return the corresponding LogLevel or null
      */
     public static LogLevel toLevel(String name)

@@ -33,12 +33,12 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a message, with no arguments.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the given message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
-     * @param level the level to log with
+     * @param level   the level to log with
      * @param message the message to log
      */
     public void log(LogLevel level, String message)
@@ -48,14 +48,14 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a message, with associated Throwable information.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the given message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
-     * @param level the level to log with
+     * @param level     the level to log with
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      */
     public void log(LogLevel level, Throwable throwable, String message)
     {
@@ -64,13 +64,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a message, with an array of object arguments.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the given message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
-     * @param level the level to log with
-     * @param message the message to log
+     * @param level     the level to log with
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void log(LogLevel level, String message, Object... arguments)
@@ -80,14 +80,14 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a message, with an array of object arguments and associated Throwable information.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the given message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
-     * @param level the level to log with
+     * @param level     the level to log with
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void log(LogLevel level, Throwable throwable, String message, Object... arguments)
@@ -103,7 +103,7 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a TRACE message.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the TRACE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
@@ -117,13 +117,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a TRACE message, with associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the TRACE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      */
     public void trace(Throwable throwable, String message)
     {
@@ -132,12 +132,12 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a TRACE message, with an array of object arguments.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the TRACE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void trace(String message, Object... arguments)
@@ -147,13 +147,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a TRACE message, with an array of object arguments and associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the TRACE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void trace(Throwable throwable, String message, Object... arguments)
@@ -163,7 +163,7 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a DEBUG message.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the DEBUG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
@@ -177,13 +177,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a DEBUG message, with associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the DEBUG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      */
     public void debug(Throwable throwable, String message)
     {
@@ -192,12 +192,12 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a DEBUG message, with an array of object arguments.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the DEBUG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void debug(String message, Object... arguments)
@@ -207,13 +207,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a DEBUG message, with an array of object arguments and associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the DEBUG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void debug(Throwable throwable, String message, Object... arguments)
@@ -223,7 +223,7 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a INFO message.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the INFO message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
@@ -237,13 +237,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a INFO message, with associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the INFO message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      */
     public void info(Throwable throwable, String message)
     {
@@ -252,12 +252,12 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a INFO message, with an array of object arguments.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the INFO message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void info(String message, Object... arguments)
@@ -267,13 +267,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a INFO message, with an array of object arguments and associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the INFO message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void info(Throwable throwable, String message, Object... arguments)
@@ -283,7 +283,7 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a WARN message.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the WARN message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
@@ -297,13 +297,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a WARN message, with associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the WARN message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      */
     public void warn(Throwable throwable, String message)
     {
@@ -312,12 +312,12 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a WARN message, with an array of object arguments.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the WARN message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void warn(String message, Object... arguments)
@@ -327,13 +327,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a WARN message, with an array of object arguments and associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the WARN message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void warn(Throwable throwable, String message, Object... arguments)
@@ -343,7 +343,7 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a ERROR message.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the ERROR message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
@@ -357,13 +357,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a ERROR message, with associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the ERROR message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      */
     public void error(Throwable throwable, String message)
     {
@@ -372,12 +372,12 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a ERROR message, with an array of object arguments.
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the ERROR message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void error(String message, Object... arguments)
@@ -387,13 +387,13 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a ERROR message, with an array of object arguments and associated Throwable information
-     * <p>
+     * <p/>
      * If the logger is currently enabled for the ERROR message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
      * @param throwable the Throwable associated with this log message
-     * @param message the message to log
+     * @param message   the message to log
      * @param arguments the array of arguments for the message
      */
     public void error(Throwable throwable, String message, Object... arguments)

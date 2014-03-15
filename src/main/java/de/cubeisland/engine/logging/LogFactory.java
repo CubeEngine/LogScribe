@@ -31,7 +31,8 @@ public interface LogFactory
      * Gets the Logger for given class and id
      *
      * @param clazz the class to get the logger for
-     * @param id the loggers id
+     * @param id    the loggers id
+     *
      * @return the loggger
      */
     Log getLog(Class<?> clazz, String id);
@@ -40,6 +41,7 @@ public interface LogFactory
      * Gets the Logger for given class and class-name
      *
      * @param clazz the class to get the logger for
+     *
      * @return the logger
      */
     Log getLog(Class<?> clazz);

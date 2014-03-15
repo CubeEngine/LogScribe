@@ -33,6 +33,7 @@ public interface LogFilter
      * Returns true if the logEntry is accepted
      *
      * @param entry the logEntry to check
+     *
      * @return whether the logEntry got accepted
      */
     boolean accept(LogEntry entry);
