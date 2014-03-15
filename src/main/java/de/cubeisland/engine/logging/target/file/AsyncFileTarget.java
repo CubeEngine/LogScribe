@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -40,7 +41,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
         }
     };
 
-    private final ConcurrentLinkedQueue<LogEntry> queue = new ConcurrentLinkedQueue<LogEntry>();
+    private final Queue<LogEntry> queue = new ConcurrentLinkedQueue<LogEntry>();
     private Future<?> future;
 
     private BufferedWriter writer = null;
@@ -231,7 +232,8 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
     {
         if (!(this.future == null || this.future.isDone()))
         {
-            future.get(time, unit); // check for logging queue to empty
+            // check for logging queue to empty
+            future.get(time, unit);
         }
     }
 }

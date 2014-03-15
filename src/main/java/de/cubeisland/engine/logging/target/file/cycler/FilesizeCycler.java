@@ -45,7 +45,8 @@ public class FilesizeCycler implements LogCycler
     {
         if (file.length() >= bytes)
         {
-            closeCallBack.close(); // Close open stream
+            // Close open stream
+            closeCallBack.close();
             File directory = file.getParentFile();
             String name = file.getName();
             String ending = "";
@@ -68,12 +69,9 @@ public class FilesizeCycler implements LogCycler
                 map.put("i", i++);
                 cycled = new File(directory, MACRO_PROCESSOR.process(format, map));
             }
-            if (!cycled.getParentFile().exists())
+            if (!(cycled.getParentFile().exists() || cycled.getParentFile().mkdirs()))
             {
-                if (!cycled.getParentFile().mkdirs())
-                {
-                    throw new LoggingException("Could not create the parent-folder for file to cycle");
-                }
+                throw new LoggingException("Could not create the parent-folder for file to cycle");
             }
             if (!file.renameTo(cycled))
             {
