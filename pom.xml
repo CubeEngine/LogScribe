@@ -4,7 +4,7 @@
 
     <groupId>de.cubeisland.engine</groupId>
     <artifactId>logging</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
 
     <name>Logging</name>
     <description>A flexible logging API developed for the CubeEngine</description>
@@ -27,7 +27,7 @@
         <url>https://github.com/CubeEngineDev/Logging</url>
         <connection>scm:git:https://github.com/CubeEngineDev/Logging</connection>
         <developerConnection>scm:git:https://github.com/CubeEngineDev/Logging</developerConnection>
-        <tag>logging-0.0.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
