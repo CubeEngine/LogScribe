@@ -102,12 +102,19 @@ public class MacroProcessor
                     else
                     {
                         curBuilder = finalString;
-                        Object value = arguments.get(keyBuffer.toString());
-                        keyBuffer = null;
-                        if (value != null)
+                        if (keyBuffer.length() == 0)
                         {
-                            curBuilder.append(String.valueOf(value));
+                            finalString.append(MACRO_BEGIN).append(MACRO_END);
                         }
+                        else
+                        {
+                            Object value = arguments.get(keyBuffer.toString());
+                            if (value != null)
+                            {
+                                curBuilder.append(String.valueOf(value));
+                            }
+                        }
+                        keyBuffer = null;
                     }
                 }
                 else

@@ -22,43 +22,31 @@
  */
 package de.cubeisland.engine.logging;
 
-/**
- * A Target to publish LogEntries
- */
-public abstract class LogTarget extends Filterable
-{
-    private boolean isShutdown = false;
+import de.cubeisland.engine.logging.target.PrintTarget;
+import junit.framework.TestCase;
 
-    /**
-     * Shuts down this LogTarget
-     */
-    public synchronized void shutdown()
-    {
-        if (!isShutdown)
-        {
-            this.isShutdown = true;
-            this.onShutdown();
-        }
-    }
+public class DefaultLogFactoryTest extends TestCase
+{
+    private DefaultLogFactory factory;
 
     @Override
-    public synchronized void log(LogEntry entry)
+    public void setUp() throws Exception
     {
-        if (this.isShutdown)
-        {
-            return;
-        }
-        super.log(entry);
+        this.factory = new DefaultLogFactory();
     }
 
-    /**
-     * Actual Shutdown Method
-     * <p>Implement as appropriate for the LogTarget
-     */
-    protected abstract void onShutdown();
-
-    public boolean isShutdown()
+    public void testFactory()
     {
-        return this.isShutdown;
+        Log log = this.factory.getLog(DefaultLogFactoryTest.class);
+        assertSame(log, this.factory.getLog(DefaultLogFactoryTest.class));
+        // unregister Log from Factory
+        log.shutdown();
+        assertNotSame(log, this.factory.getLog(DefaultLogFactoryTest.class));
+        log = this.factory.getLog(DefaultLogFactoryTest.class);
+        log.addTarget(PrintTarget.STDOUT);
+        // Shutting down all the loggers and their targets
+        this.factory.shutdown();
+        assertTrue(log.isShutdown());
+        assertTrue(log.getTargets().get(0).isShutdown());
     }
 }

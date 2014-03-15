@@ -24,6 +24,7 @@ package de.cubeisland.engine.logging;
 
 import de.cubeisland.engine.logging.target.proxy.LogProxyTarget;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class Log extends LogBase
     private final Date birthdate = new Date(System.currentTimeMillis());
 
     private final List<LogTarget> targets = new LinkedList<LogTarget>();
+    private boolean isShutdown = false;
 
     Log(LogFactory factory, Class<?> clazz, String id)
     {
@@ -117,6 +119,10 @@ public class Log extends LogBase
     @Override
     protected void publish(LogEntry entry)
     {
+        if (this.isShutdown)
+        {
+            return;
+        }
         if (!this.targets.isEmpty())
         {
             for (LogTarget target : this.targets)
@@ -132,10 +138,35 @@ public class Log extends LogBase
      */
     public void shutdown()
     {
+        if (this.isShutdown)
+        {
+            return;
+        }
+        this.isShutdown = true;
         for (LogTarget target : this.targets)
         {
             target.shutdown();
         }
         this.factory.remove(this);
+    }
+
+    /**
+     * Returns a unmodifiable List of the targets
+     *
+     * @return
+     */
+    public List<LogTarget> getTargets()
+    {
+        return Collections.unmodifiableList(targets);
+    }
+
+    /**
+     * Returns true if this Logger got shut down
+     *
+     * @return
+     */
+    public boolean isShutdown()
+    {
+        return isShutdown;
     }
 }
