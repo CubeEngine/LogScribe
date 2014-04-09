@@ -66,7 +66,7 @@ public class DefaultFormat implements Format
         map.put("msg", message);
         map.put("date", dateFormat.format(logEntry.getDate()));
         map.put("level", logEntry.getLevel().getName());
-        builder.append(MACRO_PROCESSOR.process(format, map));
+        builder.append(MACRO_PROCESSOR.process(format, map)).append("\n");
         writeThrowable(logEntry, builder);
     }
 
@@ -74,7 +74,6 @@ public class DefaultFormat implements Format
     {
         if (logEntry.hasThrowable())
         {
-            builder.append("\n");
             Throwable throwable = logEntry.getThrowable();
             if (throwable.getLocalizedMessage() != null && !throwable.getLocalizedMessage().equals(logEntry.getMessage()))
             {
