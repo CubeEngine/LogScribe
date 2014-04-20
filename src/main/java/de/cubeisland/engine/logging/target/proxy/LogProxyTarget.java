@@ -30,10 +30,4 @@ public class LogProxyTarget extends ProxyTarget<Log>
     {
         this.handle.setLevel(level);
     }
-
-    @Override
-    protected void onShutdown()
-    {
-        this.handle.shutdown();
-    }
 }

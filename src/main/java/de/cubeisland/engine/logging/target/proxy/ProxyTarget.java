@@ -29,4 +29,10 @@ public abstract class ProxyTarget<T> extends LogTarget
      * @param level the LogLevel to set
      */
     public abstract void setProxyLevel(LogLevel level);
+
+    @Override
+    protected void onShutdown()
+    {
+        // Do nothing
+    }
 }

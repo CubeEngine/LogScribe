@@ -6,7 +6,6 @@ import de.cubeisland.engine.logging.target.format.DefaultFormat;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -61,17 +60,5 @@ public class JULProxyTarget extends ProxyTarget<Logger>
         {
             super(level.getName(), level.getPriority());
         }
-    }
-
-    @Override
-    protected void onShutdown()
-    {
-        // JUL uses shutdown hooks so instead remove all handlers
-        for (Handler handler : this.handle.getHandlers())
-        {
-            this.handle.removeHandler(handler);
-        }
-        // And Set LogLevel to OFF
-        this.handle.setLevel(Level.OFF);
     }
 }
