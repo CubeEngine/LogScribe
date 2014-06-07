@@ -11,13 +11,15 @@ import java.util.Date;
  */
 public class LogFileFormat extends DefaultFormat implements FileFormat
 {
-    public LogFileFormat(String format)
-    {
-        this(format, new SimpleDateFormat());
+    public LogFileFormat() {
+        super();
     }
 
-    public LogFileFormat(String format, DateFormat dateFormat)
-    {
+    public LogFileFormat(String format) {
+        super(format);
+    }
+
+    public LogFileFormat(String format, DateFormat dateFormat) {
         super(format, dateFormat);
     }
 

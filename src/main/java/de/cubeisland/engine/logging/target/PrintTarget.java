@@ -32,8 +32,9 @@ public class PrintTarget extends FormattedTarget<Format>
     protected void publish(LogEntry entry)
     {
         StringBuilder sb = new StringBuilder();
-        this.format.writeEntry(entry, sb);
-        stream.println(sb.toString());
+        getFormat().writeEntry(entry, sb);
+        // print() instead of println() as the linebreak is provided by the format
+        stream.print(sb.toString());
     }
 
     @Override

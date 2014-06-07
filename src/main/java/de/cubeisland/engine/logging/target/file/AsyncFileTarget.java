@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -110,7 +111,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
                 OutputStreamWriter osw = new OutputStreamWriter(fos, Charset.forName("UTF-8"));
                 this.writer = new BufferedWriter(osw);
                 StringBuilder sb = new StringBuilder();
-                this.format.writeHeader(sb);
+                getFormat().writeHeader(sb);
                 if (!sb.toString().isEmpty())
                 {
                     writer.write(sb.toString());
@@ -137,7 +138,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
             {
                 LogEntry poll = queue.poll();
                 StringBuilder sb = new StringBuilder();
-                this.format.writeEntry(poll, sb);
+                getFormat().writeEntry(poll, sb);
                 bWriter.write(sb.toString());
             }
             bWriter.flush();
@@ -158,7 +159,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
         {
             BufferedWriter bWriter = this.getWriter();
             StringBuilder sb = new StringBuilder();
-            this.format.writeTrailer(sb);
+            getFormat().writeTrailer(sb);
             if (!sb.toString().isEmpty())
             {
                 bWriter.write(sb.toString());

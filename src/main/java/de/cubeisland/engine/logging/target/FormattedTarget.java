@@ -10,7 +10,7 @@ import de.cubeisland.engine.logging.target.format.Format;
  */
 public abstract class FormattedTarget<F extends Format> extends LogTarget
 {
-    protected F format;
+    private F format;
 
     /**
      * Creates a new FormattedTarget
@@ -20,5 +20,13 @@ public abstract class FormattedTarget<F extends Format> extends LogTarget
     protected FormattedTarget(F format)
     {
         this.format = format;
+    }
+
+    public void setFormat(F format) {
+        this.format = format;
+    }
+
+    public F getFormat() {
+        return this.format;
     }
 }
