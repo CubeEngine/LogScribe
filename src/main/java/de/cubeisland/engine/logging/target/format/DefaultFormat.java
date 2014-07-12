@@ -1,12 +1,12 @@
 package de.cubeisland.engine.logging.target.format;
 
-import de.cubeisland.engine.logging.LogEntry;
-import de.cubeisland.engine.logging.MacroProcessor;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+
+import de.cubeisland.engine.logging.LogEntry;
+import de.cubeisland.engine.logging.MacroProcessor;
 
 /**
  * A Simple Plain Text Format
@@ -132,7 +132,7 @@ public class DefaultFormat implements Format
         {
             if (result.contains("{"))
             {
-                result = result.replaceAll("\\{" + i + "\\}", String.valueOf(args[i]).replace("\\", "\\\\"));
+                result = result.replace("{" + i + "}", String.valueOf(args[i]));
             }
             else
             {
