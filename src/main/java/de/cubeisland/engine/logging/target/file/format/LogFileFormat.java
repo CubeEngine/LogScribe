@@ -3,7 +3,6 @@ package de.cubeisland.engine.logging.target.file.format;
 import de.cubeisland.engine.logging.target.format.DefaultFormat;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
