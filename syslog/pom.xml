@@ -12,4 +12,21 @@
     <artifactId>logscribe-syslog</artifactId>
 
     <name>LogScribe Email</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.cubeisland.engine</groupId>
+            <artifactId>logscribe-core</artifactId>
+            <version>${parent.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.graylog2</groupId>
+            <artifactId>syslog4j</artifactId>
+            <version>0.9.48</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>
