@@ -1,8 +1,7 @@
-package de.cubeisland.engine.logging.target;
+package de.cubeisland.engine.logscribe.target;
 
 import de.cubeisland.engine.logscribe.DefaultLogFactory;
 import de.cubeisland.engine.logscribe.Log;
-import de.cubeisland.engine.logscribe.target.PrintTarget;
 import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
 import junit.framework.TestCase;
 

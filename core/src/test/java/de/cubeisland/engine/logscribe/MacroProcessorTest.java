@@ -20,9 +20,8 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.cubeisland.engine.logging;
+package de.cubeisland.engine.logscribe;
 
-import de.cubeisland.engine.logscribe.MacroProcessor;
 import junit.framework.TestCase;
 
 import java.util.HashMap;

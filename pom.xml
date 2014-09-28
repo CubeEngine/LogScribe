@@ -127,7 +127,7 @@
                 <artifactId>maven-license-plugin</artifactId>
                 <version>1.10.b1</version>
                 <configuration>
-                    <header>/LICENSE.txt</header>
+                    <header>LICENSE.txt</header>
                     <strictCheck>true</strictCheck>
                     <includes>
                         <include>**/*.java</include>
