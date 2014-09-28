@@ -59,7 +59,7 @@ public abstract class Filterable
      *
      * @param filter the filter to remove
      *
-     * @return whether the given Filter wass in the filter list
+     * @return whether the given Filter was in the filter list
      */
     public final boolean removeFilter(LogFilter filter)
     {

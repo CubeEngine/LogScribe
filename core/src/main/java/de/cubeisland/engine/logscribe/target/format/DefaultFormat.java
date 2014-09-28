@@ -59,7 +59,7 @@ public class DefaultFormat implements Format
     {
         String message = String.valueOf(logEntry.getMessage());
         Map<String, Object> map = new HashMap<String, Object>();
-        if (logEntry.getArgs() != null && logEntry.getArgs().length != 0)
+        if (logEntry.hasArgs())
         {
             message = DefaultFormat.parseArgs(message, logEntry.getArgs());
         }

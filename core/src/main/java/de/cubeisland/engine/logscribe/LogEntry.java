@@ -114,6 +114,16 @@ public class LogEntry
     }
 
     /**
+     * Returns true if the args array has been set and is not empty
+     *
+     * @return true if args are available
+     */
+    public boolean hasArgs()
+    {
+        return this.args != null && this.args.length > 0;
+    }
+
+    /**
      * Returns the Arguments of this LogEntry
      *
      * @return the arguments

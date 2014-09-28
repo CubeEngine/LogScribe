@@ -24,22 +24,23 @@ package de.cubeisland.engine.logscribe;
 
 import de.cubeisland.engine.logscribe.target.proxy.LogProxyTarget;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
+
 
 /**
  * A Logger with a list of targets used to publish LogEntries
  */
-public class Log extends LogBase
+public class Log extends LogBase implements Flushable
 {
     private final LogFactory factory;
     private final String id;
     private final Class<?> clazz;
-    private final Date birthdate = new Date(System.currentTimeMillis());
+    private final Date birthDate = new Date(System.currentTimeMillis());
 
-    private final List<LogTarget> targets = new LinkedList<LogTarget>();
+    private final List<LogTarget> targets = new ArrayList<LogTarget>();
     private boolean isShutdown = false;
 
     Log(LogFactory factory, Class<?> clazz, String id)
@@ -74,9 +75,9 @@ public class Log extends LogBase
      *
      * @return the creation date if this Logger
      */
-    public Date getBirthdate()
+    public Date getBirthDate()
     {
-        return new Date(birthdate.getTime());
+        return new Date(birthDate.getTime());
     }
 
     /**
@@ -171,5 +172,16 @@ public class Log extends LogBase
     public boolean isShutdown()
     {
         return isShutdown;
+    }
+
+    public void flush()
+    {
+        for (LogTarget target : this.targets)
+        {
+            if (target instanceof Flushable)
+            {
+                ((Flushable) target).flush();
+            }
+        }
     }
 }
