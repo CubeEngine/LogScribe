@@ -24,7 +24,6 @@ package de.cubeisland.engine.logging;
 
 import de.cubeisland.engine.logging.filter.LogFilter;
 
-import java.util.Deque;
 import java.util.LinkedList;
 
 /**
@@ -32,7 +31,7 @@ import java.util.LinkedList;
  */
 public abstract class Filterable
 {
-    protected Deque<LogFilter> filters = new LinkedList<LogFilter>();
+    protected LinkedList<LogFilter> filters = new LinkedList<LogFilter>();
     protected LogLevel level = LogLevel.ALL;
 
     /**
