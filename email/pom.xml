@@ -11,7 +11,7 @@
 
     <artifactId>logscribe-email</artifactId>
 
-    <name>LogScribe Syslog</name>
+    <name>LogScribe Email</name>
 
     <dependencies>
         <dependency>
