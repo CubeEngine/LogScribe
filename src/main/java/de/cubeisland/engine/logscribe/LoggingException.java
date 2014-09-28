@@ -20,34 +20,34 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.cubeisland.engine.logging;
+package de.cubeisland.engine.logscribe;
 
-import de.cubeisland.engine.logscribe.MacroProcessor;
-import junit.framework.TestCase;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class MacroProcessorTest extends TestCase
+/**
+ * This Exception is thrown when an error occurred while Logging
+ */
+public class LoggingException extends RuntimeException
 {
-    private MacroProcessor macroProcessor;
-
-    @Override
-    public void setUp() throws Exception
+    public LoggingException()
     {
-        this.macroProcessor = new MacroProcessor();
     }
 
-    public void testMacroProcessor()
+    public LoggingException(String message)
     {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("key", "value");
-        map.put("key2", "value2");
-        map.put("key}", "value3");
-        assertEquals(this.macroProcessor.process("{key}{key2}", map), "valuevalue2");
-        assertEquals(this.macroProcessor.process("{{key}{key2}", map), "value2");
-        assertEquals(this.macroProcessor.process("\\{{key}|{key2}}", map), "{value|value2}");
-        assertEquals(this.macroProcessor.process("{key\\}}", map), "value3");
-        assertEquals(this.macroProcessor.process("{}{keywithoutvalue}:\\{a}\\", map), "{}:{a}\\");
+        super(message);
+    }
+
+    public LoggingException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
+
+    public LoggingException(Throwable cause)
+    {
+        super(cause);
+    }
+
+    public LoggingException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+    {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }

@@ -1,8 +1,9 @@
 package de.cubeisland.engine.logging.target;
 
-import de.cubeisland.engine.logging.DefaultLogFactory;
-import de.cubeisland.engine.logging.Log;
-import de.cubeisland.engine.logging.target.format.DefaultFormat;
+import de.cubeisland.engine.logscribe.DefaultLogFactory;
+import de.cubeisland.engine.logscribe.Log;
+import de.cubeisland.engine.logscribe.target.PrintTarget;
+import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;

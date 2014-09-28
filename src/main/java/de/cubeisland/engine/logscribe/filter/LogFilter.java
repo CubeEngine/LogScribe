@@ -20,34 +20,21 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.cubeisland.engine.logging;
+package de.cubeisland.engine.logscribe.filter;
 
-import de.cubeisland.engine.logscribe.MacroProcessor;
-import junit.framework.TestCase;
+import de.cubeisland.engine.logscribe.LogEntry;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class MacroProcessorTest extends TestCase
+/**
+ * A LogFilter can accept or deny and/or modify a LogEntry
+ */
+public interface LogFilter
 {
-    private MacroProcessor macroProcessor;
-
-    @Override
-    public void setUp() throws Exception
-    {
-        this.macroProcessor = new MacroProcessor();
-    }
-
-    public void testMacroProcessor()
-    {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("key", "value");
-        map.put("key2", "value2");
-        map.put("key}", "value3");
-        assertEquals(this.macroProcessor.process("{key}{key2}", map), "valuevalue2");
-        assertEquals(this.macroProcessor.process("{{key}{key2}", map), "value2");
-        assertEquals(this.macroProcessor.process("\\{{key}|{key2}}", map), "{value|value2}");
-        assertEquals(this.macroProcessor.process("{key\\}}", map), "value3");
-        assertEquals(this.macroProcessor.process("{}{keywithoutvalue}:\\{a}\\", map), "{}:{a}\\");
-    }
+    /**
+     * Returns true if the logEntry is accepted
+     *
+     * @param entry the logEntry to check
+     *
+     * @return whether the logEntry got accepted
+     */
+    boolean accept(LogEntry entry);
 }

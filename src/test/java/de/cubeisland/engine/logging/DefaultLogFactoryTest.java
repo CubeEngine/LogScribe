@@ -22,7 +22,9 @@
  */
 package de.cubeisland.engine.logging;
 
-import de.cubeisland.engine.logging.target.PrintTarget;
+import de.cubeisland.engine.logscribe.DefaultLogFactory;
+import de.cubeisland.engine.logscribe.Log;
+import de.cubeisland.engine.logscribe.target.PrintTarget;
 import junit.framework.TestCase;
 
 public class DefaultLogFactoryTest extends TestCase

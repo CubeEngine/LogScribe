@@ -20,34 +20,45 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.cubeisland.engine.logging;
+package de.cubeisland.engine.logscribe;
 
-import de.cubeisland.engine.logscribe.MacroProcessor;
-import junit.framework.TestCase;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class MacroProcessorTest extends TestCase
+/**
+ * A Target to publish LogEntries
+ */
+public abstract class LogTarget extends Filterable
 {
-    private MacroProcessor macroProcessor;
+    private boolean isShutdown = false;
 
-    @Override
-    public void setUp() throws Exception
+    /**
+     * Shuts down this LogTarget
+     */
+    public synchronized void shutdown()
     {
-        this.macroProcessor = new MacroProcessor();
+        if (!isShutdown)
+        {
+            this.isShutdown = true;
+            this.onShutdown();
+        }
     }
 
-    public void testMacroProcessor()
+    @Override
+    public synchronized void log(LogEntry entry)
     {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("key", "value");
-        map.put("key2", "value2");
-        map.put("key}", "value3");
-        assertEquals(this.macroProcessor.process("{key}{key2}", map), "valuevalue2");
-        assertEquals(this.macroProcessor.process("{{key}{key2}", map), "value2");
-        assertEquals(this.macroProcessor.process("\\{{key}|{key2}}", map), "{value|value2}");
-        assertEquals(this.macroProcessor.process("{key\\}}", map), "value3");
-        assertEquals(this.macroProcessor.process("{}{keywithoutvalue}:\\{a}\\", map), "{}:{a}\\");
+        if (this.isShutdown)
+        {
+            return;
+        }
+        super.log(entry);
+    }
+
+    /**
+     * Actual Shutdown Method
+     * <p>Implement as appropriate for the LogTarget
+     */
+    protected abstract void onShutdown();
+
+    public boolean isShutdown()
+    {
+        return this.isShutdown;
     }
 }

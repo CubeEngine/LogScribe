@@ -1,0 +1,12 @@
+package de.cubeisland.engine.logscribe.target.file.cycler;
+
+import java.io.File;
+
+// TODO implement me
+public class DateCycler implements LogCycler
+{
+    public File cycle(File file, CloseCallback closeCallBack)
+    {
+        return file;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+}
