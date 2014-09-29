@@ -22,6 +22,8 @@
  */
 package de.cubeisland.engine.logscribe;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,21 +32,42 @@ import java.util.Map;
  */
 public class LogLevel implements Comparable<LogLevel>
 {
-    private static Map<String, LogLevel> map = new HashMap<String, LogLevel>();
+    private static final Map<String, LogLevel> map = new HashMap<String, LogLevel>();
 
     // meta levels
     public static final LogLevel ALL = new LogLevel("ALL", Integer.MIN_VALUE);
     public static final LogLevel NONE = new LogLevel("NONE", Integer.MAX_VALUE);
 
     // default levels
-    public static final LogLevel TRACE = new LogLevel("TRACE", 100);
-    public static final LogLevel DEBUG = new LogLevel("DEBUG", 200);
-    public static final LogLevel INFO = new LogLevel("INFO", 300);
-    public static final LogLevel WARN = new LogLevel("WARN", 400);
-    public static final LogLevel ERROR = new LogLevel("ERROR", 500);
+    public static final LogLevel TRACE    = new LogLevel("TRACE",     100);
+    public static final LogLevel DEBUG    = new LogLevel("DEBUG",     200);
+    public static final LogLevel INFO     = new LogLevel("INFO",      300);
+    public static final LogLevel NOTICE   = new LogLevel("NOTICE",    400);
+    public static final LogLevel WARNING  = new LogLevel("WARNING",   500);
+    public static final LogLevel ERROR    = new LogLevel("ERROR",     600);
+    public static final LogLevel CRITICAL = new LogLevel("CRITICAL",  700);
+    public static final LogLevel FATAL    = new LogLevel("FATAL",     800);
+    public static final LogLevel EMERG    = new LogLevel("EMERGENCY", 700);
 
     private final String name;
     private final int priority;
+
+    static
+    {
+        for (Field field : LogLevel.class.getDeclaredFields())
+        {
+            if (Modifier.isStatic(field.getModifiers()) && field.isAccessible() && LogLevel.class.isAssignableFrom(field.getType()))
+            {
+                try
+                {
+                    LogLevel level = (LogLevel)field.get(null);
+                    map.put(level.getName().toUpperCase(), level);
+                }
+                catch (IllegalAccessException ignored)
+                {}
+            }
+        }
+    }
 
     /**
      * Creates a new LogLevel with given name and priority
@@ -54,13 +77,8 @@ public class LogLevel implements Comparable<LogLevel>
      */
     public LogLevel(String name, int priority)
     {
-        if (map.containsKey(name.toUpperCase()))
-        {
-            throw new IllegalArgumentException("There is already a LogLevel named " + name);
-        }
         this.name = name;
         this.priority = priority;
-        map.put(name.toUpperCase(), this);
     }
 
     /**
@@ -134,5 +152,11 @@ public class LogLevel implements Comparable<LogLevel>
     public int hashCode()
     {
         return priority;
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.name;
     }
 }

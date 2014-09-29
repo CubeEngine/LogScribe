@@ -282,9 +282,69 @@ public abstract class LogBase extends Filterable
     }
 
     /**
-     * Log a WARN message.
+     * Log a NOTICE message.
      * <p/>
-     * If the logger is currently enabled for the WARN message
+     * If the logger is currently enabled for the NOTICE message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     */
+    public void notice(String message)
+    {
+        this.warn(message, NO_ARGS);
+    }
+
+    /**
+     * Log a NOTICE message, with associated Throwable information
+     * <p/>
+     * If the logger is currently enabled for the NOTICE message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message   the message to log
+     */
+    public void notice(Throwable throwable, String message)
+    {
+        this.warn(throwable, message, NO_ARGS);
+    }
+
+    /**
+     * Log a NOTICE message, with an array of object arguments.
+     * <p/>
+     * If the logger is currently enabled for the NOTICE message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message   the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void notice(String message, Object... arguments)
+    {
+        this.log(LogLevel.WARNING, message, arguments);
+    }
+
+    /**
+     * Log a NOTICE message, with an array of object arguments and associated Throwable information
+     * <p/>
+     * If the logger is currently enabled for the NOTICE message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message   the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void notice(Throwable throwable, String message, Object... arguments)
+    {
+        this.log(LogLevel.WARNING, throwable, message, arguments);
+    }
+
+    /**
+     * Log a WARNING message.
+     * <p/>
+     * If the logger is currently enabled for the WARNING message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
@@ -296,9 +356,9 @@ public abstract class LogBase extends Filterable
     }
 
     /**
-     * Log a WARN message, with associated Throwable information
+     * Log a WARNING message, with associated Throwable information
      * <p/>
-     * If the logger is currently enabled for the WARN message
+     * If the logger is currently enabled for the WARNING message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
@@ -311,9 +371,9 @@ public abstract class LogBase extends Filterable
     }
 
     /**
-     * Log a WARN message, with an array of object arguments.
+     * Log a WARNING message, with an array of object arguments.
      * <p/>
-     * If the logger is currently enabled for the WARN message
+     * If the logger is currently enabled for the WARNING message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
@@ -322,13 +382,13 @@ public abstract class LogBase extends Filterable
      */
     public void warn(String message, Object... arguments)
     {
-        this.log(LogLevel.WARN, message, arguments);
+        this.log(LogLevel.WARNING, message, arguments);
     }
 
     /**
-     * Log a WARN message, with an array of object arguments and associated Throwable information
+     * Log a WARNING message, with an array of object arguments and associated Throwable information
      * <p/>
-     * If the logger is currently enabled for the WARN message
+     * If the logger is currently enabled for the WARNING message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
      *
@@ -338,7 +398,7 @@ public abstract class LogBase extends Filterable
      */
     public void warn(Throwable throwable, String message, Object... arguments)
     {
-        this.log(LogLevel.WARN, throwable, message, arguments);
+        this.log(LogLevel.WARNING, throwable, message, arguments);
     }
 
     /**
@@ -397,6 +457,186 @@ public abstract class LogBase extends Filterable
      * @param arguments the array of arguments for the message
      */
     public void error(Throwable throwable, String message, Object... arguments)
+    {
+        this.log(LogLevel.ERROR, throwable, message, arguments);
+    }
+
+    /**
+     * Log a CRITICAL message.
+     * <p/>
+     * If the logger is currently enabled for the CRITICAL message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     */
+    public void crit(String message)
+    {
+        this.error(message, NO_ARGS);
+    }
+
+    /**
+     * Log a CRITICAL message, with associated Throwable information
+     * <p/>
+     * If the logger is currently enabled for the CRITICAL message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message   the message to log
+     */
+    public void crit(Throwable throwable, String message)
+    {
+        this.error(throwable, message, NO_ARGS);
+    }
+
+    /**
+     * Log a CRITICAL message, with an array of object arguments.
+     * <p/>
+     * If the logger is currently enabled for the CRITICAL message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message   the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void crit(String message, Object... arguments)
+    {
+        this.log(LogLevel.ERROR, message, arguments);
+    }
+
+    /**
+     * Log a CRITICAL message, with an array of object arguments and associated Throwable information
+     * <p/>
+     * If the logger is currently enabled for the CRITICAL message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message   the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void crit(Throwable throwable, String message, Object... arguments)
+    {
+        this.log(LogLevel.ERROR, throwable, message, arguments);
+    }
+
+    /**
+     * Log a FATAL message.
+     * <p/>
+     * If the logger is currently enabled for the FATAL message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     */
+    public void fatal(String message)
+    {
+        this.error(message, NO_ARGS);
+    }
+
+    /**
+     * Log a FATAL message, with associated Throwable information
+     * <p/>
+     * If the logger is currently enabled for the FATAL message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message   the message to log
+     */
+    public void fatal(Throwable throwable, String message)
+    {
+        this.error(throwable, message, NO_ARGS);
+    }
+
+    /**
+     * Log a FATAL message, with an array of object arguments.
+     * <p/>
+     * If the logger is currently enabled for the FATAL message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message   the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void fatal(String message, Object... arguments)
+    {
+        this.log(LogLevel.ERROR, message, arguments);
+    }
+
+    /**
+     * Log a FATAL message, with an array of object arguments and associated Throwable information
+     * <p/>
+     * If the logger is currently enabled for the FATAL message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message   the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void fatal(Throwable throwable, String message, Object... arguments)
+    {
+        this.log(LogLevel.ERROR, throwable, message, arguments);
+    }
+
+    /**
+     * Log a EMERG message.
+     * <p/>
+     * If the logger is currently enabled for the EMERG message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message the message to log
+     */
+    public void emerg(String message)
+    {
+        this.error(message, NO_ARGS);
+    }
+
+    /**
+     * Log a EMERG message, with associated Throwable information
+     * <p/>
+     * If the logger is currently enabled for the EMERG message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message   the message to log
+     */
+    public void emerg(Throwable throwable, String message)
+    {
+        this.error(throwable, message, NO_ARGS);
+    }
+
+    /**
+     * Log a EMERG message, with an array of object arguments.
+     * <p/>
+     * If the logger is currently enabled for the EMERG message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param message   the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void emerg(String message, Object... arguments)
+    {
+        this.log(LogLevel.ERROR, message, arguments);
+    }
+
+    /**
+     * Log a EMERG message, with an array of object arguments and associated Throwable information
+     * <p/>
+     * If the logger is currently enabled for the EMERG message
+     * level then the given message is forwarded to all the
+     * registered LogTarget objects.
+     *
+     * @param throwable the Throwable associated with this log message
+     * @param message   the message to log
+     * @param arguments the array of arguments for the message
+     */
+    public void emerg(Throwable throwable, String message, Object... arguments)
     {
         this.log(LogLevel.ERROR, throwable, message, arguments);
     }

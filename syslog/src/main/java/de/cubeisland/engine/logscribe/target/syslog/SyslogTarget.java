@@ -15,6 +15,7 @@ public class SyslogTarget extends LogTarget implements Flushable
     public SyslogTarget()
     {
         this(Syslog.getInstance("udp"));
+        appendFilter(new SyslogLevelFilter());
     }
 
     public SyslogTarget(String instanceName, SyslogConfigIF config)
