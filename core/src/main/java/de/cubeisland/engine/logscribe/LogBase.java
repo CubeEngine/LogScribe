@@ -292,7 +292,7 @@ public abstract class LogBase extends Filterable
      */
     public void notice(String message)
     {
-        this.warn(message, NO_ARGS);
+        this.notice(message, NO_ARGS);
     }
 
     /**
@@ -307,7 +307,7 @@ public abstract class LogBase extends Filterable
      */
     public void notice(Throwable throwable, String message)
     {
-        this.warn(throwable, message, NO_ARGS);
+        this.notice(throwable, message, NO_ARGS);
     }
 
     /**
@@ -472,7 +472,7 @@ public abstract class LogBase extends Filterable
      */
     public void crit(String message)
     {
-        this.error(message, NO_ARGS);
+        this.crit(message, NO_ARGS);
     }
 
     /**
@@ -487,7 +487,7 @@ public abstract class LogBase extends Filterable
      */
     public void crit(Throwable throwable, String message)
     {
-        this.error(throwable, message, NO_ARGS);
+        this.crit(throwable, message, NO_ARGS);
     }
 
     /**
@@ -532,7 +532,7 @@ public abstract class LogBase extends Filterable
      */
     public void fatal(String message)
     {
-        this.error(message, NO_ARGS);
+        this.fatal(message, NO_ARGS);
     }
 
     /**
@@ -547,7 +547,7 @@ public abstract class LogBase extends Filterable
      */
     public void fatal(Throwable throwable, String message)
     {
-        this.error(throwable, message, NO_ARGS);
+        this.fatal(throwable, message, NO_ARGS);
     }
 
     /**
@@ -592,7 +592,7 @@ public abstract class LogBase extends Filterable
      */
     public void emerg(String message)
     {
-        this.error(message, NO_ARGS);
+        this.emerg(message, NO_ARGS);
     }
 
     /**
@@ -607,7 +607,7 @@ public abstract class LogBase extends Filterable
      */
     public void emerg(Throwable throwable, String message)
     {
-        this.error(throwable, message, NO_ARGS);
+        this.emerg(throwable, message, NO_ARGS);
     }
 
     /**
