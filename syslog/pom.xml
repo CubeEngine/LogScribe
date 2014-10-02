@@ -15,8 +15,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.cubeisland.engine</groupId>
-            <artifactId>logscribe-core</artifactId>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-core</artifactId>
             <version>${project.parent.version}</version>
             <type>jar</type>
             <scope>compile</scope>
