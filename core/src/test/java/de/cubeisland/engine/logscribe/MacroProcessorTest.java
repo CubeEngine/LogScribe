@@ -22,21 +22,25 @@
  */
 package de.cubeisland.engine.logscribe;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MacroProcessorTest extends TestCase
+import static org.junit.Assert.assertEquals;
+
+public class MacroProcessorTest
 {
     private MacroProcessor macroProcessor;
 
-    @Override
+    @Before
     public void setUp() throws Exception
     {
         this.macroProcessor = new MacroProcessor();
     }
 
+    @Test
     public void testMacroProcessor()
     {
         Map<String, Object> map = new HashMap<String, Object>();

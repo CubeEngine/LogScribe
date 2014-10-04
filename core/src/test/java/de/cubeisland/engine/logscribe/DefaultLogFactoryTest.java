@@ -23,18 +23,24 @@
 package de.cubeisland.engine.logscribe;
 
 import de.cubeisland.engine.logscribe.target.PrintTarget;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
-public class DefaultLogFactoryTest extends TestCase
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
+public class DefaultLogFactoryTest
 {
     private DefaultLogFactory factory;
 
-    @Override
+    @Before
     public void setUp() throws Exception
     {
         this.factory = new DefaultLogFactory();
     }
 
+    @Test
     public void testFactory()
     {
         Log log = this.factory.getLog(DefaultLogFactoryTest.class);

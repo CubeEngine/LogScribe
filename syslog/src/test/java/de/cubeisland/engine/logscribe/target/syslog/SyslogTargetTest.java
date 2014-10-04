@@ -2,13 +2,11 @@ package de.cubeisland.engine.logscribe.target.syslog;
 
 import de.cubeisland.engine.logscribe.DefaultLogFactory;
 import de.cubeisland.engine.logscribe.Log;
-import de.cubeisland.engine.logscribe.LogEntry;
 import de.cubeisland.engine.logscribe.LogFactory;
 import de.cubeisland.engine.logscribe.LogLevel;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Date;
 
 public class SyslogTargetTest
 {
@@ -29,6 +27,7 @@ public class SyslogTargetTest
         log.flush();
     }
 
+    @After
     public void shutdown()
     {
         this.factory.shutdown();
