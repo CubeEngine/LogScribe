@@ -3,22 +3,26 @@ package de.cubeisland.engine.logscribe.target;
 import de.cubeisland.engine.logscribe.DefaultLogFactory;
 import de.cubeisland.engine.logscribe.Log;
 import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class PrintTargetTest extends TestCase
-{
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+public class PrintTargetTest
+{
     private DefaultLogFactory factory;
 
-    @Override
+    @Before
     public void setUp() throws Exception
     {
         this.factory = new DefaultLogFactory();
     }
 
+    @Test
     public void testPrintTarget()
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
