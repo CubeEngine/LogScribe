@@ -27,6 +27,11 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
+
+import static java.lang.reflect.Modifier.isPublic;
+import static java.lang.reflect.Modifier.isStatic;
+
 /**
  * A LogLevel used to define if a Logger will Log a LogEntry
  */
@@ -56,7 +61,7 @@ public class LogLevel implements Comparable<LogLevel>
     {
         for (Field field : LogLevel.class.getDeclaredFields())
         {
-            if (Modifier.isStatic(field.getModifiers()) && field.isAccessible() && LogLevel.class.isAssignableFrom(field.getType()))
+            if (isStatic(field.getModifiers()) && isPublic(field.getModifiers()) && LogLevel.class.isAssignableFrom(field.getType()))
             {
                 try
                 {
