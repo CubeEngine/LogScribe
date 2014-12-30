@@ -111,7 +111,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
                 this.writer = new BufferedWriter(osw);
                 StringBuilder sb = new StringBuilder();
                 getFormat().writeHeader(sb);
-                if (!sb.toString().isEmpty())
+                if (sb.length() > 0)
                 {
                     writer.write(sb.toString());
                 }
@@ -159,7 +159,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
             BufferedWriter bWriter = this.getWriter();
             StringBuilder sb = new StringBuilder();
             getFormat().writeTrailer(sb);
-            if (!sb.toString().isEmpty())
+            if (sb.length() > 0)
             {
                 bWriter.write(sb.toString());
             }

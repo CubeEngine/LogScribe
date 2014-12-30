@@ -67,6 +67,11 @@ public class LogLevel implements Comparable<LogLevel>
                 {
                     LogLevel level = (LogLevel)field.get(null);
                     map.put(level.getName().toUpperCase(), level);
+                    String fieldName = field.getName().toUpperCase();
+                    if (!map.containsKey(fieldName))
+                    {
+                        map.put(fieldName, level);
+                    }
                 }
                 catch (IllegalAccessException ignored)
                 {}
