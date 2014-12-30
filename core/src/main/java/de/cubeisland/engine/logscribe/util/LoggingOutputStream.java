@@ -36,13 +36,20 @@ public class LoggingOutputStream extends ByteArrayOutputStream
 {
     private final Log log;
     private final LogLevel level;
+    private final String encoding;
     private final String lineSeparator;
 
     public LoggingOutputStream(Log log, LogLevel level)
     {
+        this(log, level, "UTF-8");
+    }
+
+    public LoggingOutputStream(Log log, LogLevel level, String encoding)
+    {
         super();
         this.log = log;
         this.level = level;
+        this.encoding = encoding;
         this.lineSeparator = System.getProperty("line.separator");
     }
 
@@ -53,7 +60,7 @@ public class LoggingOutputStream extends ByteArrayOutputStream
         synchronized (this)
         {
             super.flush();
-            record = this.toString();
+            record = this.toString(this.encoding);
             super.reset();
             if (record.length() == 0 || record.equals(this.lineSeparator))
             {

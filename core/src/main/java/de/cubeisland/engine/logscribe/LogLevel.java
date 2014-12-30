@@ -23,11 +23,8 @@
 package de.cubeisland.engine.logscribe;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
@@ -37,7 +34,7 @@ import static java.lang.reflect.Modifier.isStatic;
  */
 public class LogLevel implements Comparable<LogLevel>
 {
-    private static final Map<String, LogLevel> map = new HashMap<String, LogLevel>();
+    private static final Map<String, LogLevel> LOG_LEVEL_LOOKUP = new HashMap<String, LogLevel>();
 
     // meta levels
     public static final LogLevel ALL = new LogLevel("ALL", Integer.MIN_VALUE);
@@ -66,11 +63,11 @@ public class LogLevel implements Comparable<LogLevel>
                 try
                 {
                     LogLevel level = (LogLevel)field.get(null);
-                    map.put(level.getName().toUpperCase(), level);
+                    LOG_LEVEL_LOOKUP.put(level.getName().toUpperCase(), level);
                     String fieldName = field.getName().toUpperCase();
-                    if (!map.containsKey(fieldName))
+                    if (!LOG_LEVEL_LOOKUP.containsKey(fieldName))
                     {
-                        map.put(fieldName, level);
+                        LOG_LEVEL_LOOKUP.put(fieldName, level);
                     }
                 }
                 catch (IllegalAccessException ignored)
@@ -133,7 +130,7 @@ public class LogLevel implements Comparable<LogLevel>
      */
     public static LogLevel toLevel(String name)
     {
-        return map.get(name.toUpperCase());
+        return LOG_LEVEL_LOOKUP.get(name.toUpperCase());
     }
 
     @Override
