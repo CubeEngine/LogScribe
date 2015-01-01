@@ -1,6 +1,6 @@
 /.idea/**
 !/.idea/codeStyleSettings.xml
-/*/target/
+target/
 /*.xml
 !/pom.xml
 *.iml
