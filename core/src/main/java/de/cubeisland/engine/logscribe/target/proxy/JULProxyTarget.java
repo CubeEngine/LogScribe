@@ -1,14 +1,14 @@
 package de.cubeisland.engine.logscribe.target.proxy;
 
-import de.cubeisland.engine.logscribe.LogEntry;
-import de.cubeisland.engine.logscribe.LogLevel;
-import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+
+import de.cubeisland.engine.logscribe.LogEntry;
+import de.cubeisland.engine.logscribe.LogLevel;
+import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
 
 /**
  * A ProxyTarget for {@link java.util.logging.Logger

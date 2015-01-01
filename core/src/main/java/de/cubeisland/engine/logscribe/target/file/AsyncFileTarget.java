@@ -1,12 +1,5 @@
 package de.cubeisland.engine.logscribe.target.file;
 
-import de.cubeisland.engine.logscribe.LogEntry;
-import de.cubeisland.engine.logscribe.LoggingException;
-import de.cubeisland.engine.logscribe.target.FormattedTarget;
-import de.cubeisland.engine.logscribe.target.file.cycler.CloseCallback;
-import de.cubeisland.engine.logscribe.target.file.cycler.LogCycler;
-import de.cubeisland.engine.logscribe.target.file.format.FileFormat;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +16,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import de.cubeisland.engine.logscribe.LogEntry;
+import de.cubeisland.engine.logscribe.LoggingException;
+import de.cubeisland.engine.logscribe.target.FormattedTarget;
+import de.cubeisland.engine.logscribe.target.file.cycler.CloseCallback;
+import de.cubeisland.engine.logscribe.target.file.cycler.LogCycler;
+import de.cubeisland.engine.logscribe.target.file.format.FileFormat;
 
 public class AsyncFileTarget extends FormattedTarget<FileFormat> implements CloseCallback
 {

@@ -1,9 +1,9 @@
 package de.cubeisland.engine.logscribe.target.file.format;
 
-import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
-
 import java.text.DateFormat;
 import java.util.Date;
+
+import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
 
 /**
  * A Simple Plain Text LogFileFormat

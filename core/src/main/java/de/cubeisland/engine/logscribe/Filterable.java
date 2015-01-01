@@ -22,9 +22,9 @@
  */
 package de.cubeisland.engine.logscribe;
 
-import de.cubeisland.engine.logscribe.filter.LogFilter;
-
 import java.util.LinkedList;
+
+import de.cubeisland.engine.logscribe.filter.LogFilter;
 
 /**
  * Base class for Log(LogBase) and LogTarget providing Filter and LogLevel logic

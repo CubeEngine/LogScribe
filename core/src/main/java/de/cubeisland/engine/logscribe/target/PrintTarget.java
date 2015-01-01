@@ -1,11 +1,11 @@
 package de.cubeisland.engine.logscribe.target;
 
-import de.cubeisland.engine.logscribe.Flushable;
-import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
-import de.cubeisland.engine.logscribe.LogEntry;
-import de.cubeisland.engine.logscribe.target.format.Format;
-
 import java.io.PrintStream;
+
+import de.cubeisland.engine.logscribe.Flushable;
+import de.cubeisland.engine.logscribe.LogEntry;
+import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
+import de.cubeisland.engine.logscribe.target.format.Format;
 
 /**
  * A LogTarget publishing to a PrintStream

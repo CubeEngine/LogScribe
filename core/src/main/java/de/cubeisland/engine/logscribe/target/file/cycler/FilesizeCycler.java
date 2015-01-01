@@ -1,14 +1,14 @@
 package de.cubeisland.engine.logscribe.target.file.cycler;
 
-import de.cubeisland.engine.logscribe.LoggingException;
-import de.cubeisland.engine.logscribe.MacroProcessor;
-
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import de.cubeisland.engine.logscribe.LoggingException;
+import de.cubeisland.engine.logscribe.MacroProcessor;
 
 /**
  * Logcycling based on FileSize

@@ -22,12 +22,12 @@
  */
 package de.cubeisland.engine.logscribe;
 
-import de.cubeisland.engine.logscribe.target.proxy.LogProxyTarget;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import de.cubeisland.engine.logscribe.target.proxy.LogProxyTarget;
 
 
 /**

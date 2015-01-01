@@ -26,9 +26,7 @@ import de.cubeisland.engine.logscribe.target.PrintTarget;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DefaultLogFactoryTest
 {

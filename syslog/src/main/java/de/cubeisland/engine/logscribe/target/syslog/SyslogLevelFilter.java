@@ -1,9 +1,9 @@
 package de.cubeisland.engine.logscribe.target.syslog;
 
+import java.util.Map;
+
 import de.cubeisland.engine.logscribe.LogLevel;
 import de.cubeisland.engine.logscribe.target.LogLevelFilter;
-
-import java.util.Map;
 
 public class SyslogLevelFilter extends LogLevelFilter
 {

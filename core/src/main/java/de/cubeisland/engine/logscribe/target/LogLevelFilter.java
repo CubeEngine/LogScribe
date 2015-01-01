@@ -1,11 +1,11 @@
 package de.cubeisland.engine.logscribe.target;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.cubeisland.engine.logscribe.LogEntry;
 import de.cubeisland.engine.logscribe.LogLevel;
 import de.cubeisland.engine.logscribe.filter.LogFilter;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This filter maps the default log levels to custom levels.

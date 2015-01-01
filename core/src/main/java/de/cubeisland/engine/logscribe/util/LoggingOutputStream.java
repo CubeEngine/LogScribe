@@ -22,12 +22,12 @@
  */
 package de.cubeisland.engine.logscribe.util;
 
-import de.cubeisland.engine.logscribe.Log;
-import de.cubeisland.engine.logscribe.LogLevel;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+
+import de.cubeisland.engine.logscribe.Log;
+import de.cubeisland.engine.logscribe.LogLevel;
 
 /**
  * Based on this implementation: https://blogs.oracle.com/nickstephen/entry/java_redirecting_system_out_and
