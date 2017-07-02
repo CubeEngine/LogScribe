@@ -24,13 +24,13 @@ package org.cubeengine.logscribe;
 
 import java.time.ZonedDateTime;
 
+import static org.cubeengine.logscribe.LogEntry.NO_ARGS;
+
 /**
  * LogBase provides various logging methods and redirects them to {@link Filterable#log(LogEntry)}
  */
 public abstract class LogBase extends Filterable
 {
-    private static final Object[] NO_ARGS = {};
-
     /**
      * Log a message, with no arguments.
      * <p/>

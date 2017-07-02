@@ -1,11 +1,13 @@
 package org.cubeengine.logscribe.target.format;
 
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Map;
 
 import org.cubeengine.logscribe.LogEntry;
-import org.cubeengine.logscribe.MacroProcessor;
+
+import static org.cubeengine.logscribe.MacroProcessor.processMacros;
+import static org.cubeengine.logscribe.MacroProcessor.processSimpleMacros;
 
 /**
  * A Simple Plain Text Format
@@ -14,8 +16,11 @@ import org.cubeengine.logscribe.MacroProcessor;
  */
 public class DefaultFormat implements Format
 {
-    private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();
-    private static final String ARG = "\\{\\}";
+    private static final String MACRO_MESSAGE = "msg";
+    private static final String MACRO_DATE = "date";
+    private static final String MACRO_LEVEL = "level";
+
+    public static final String DEFAULT_FORMAT = "{" + MACRO_DATE + "} [{" + MACRO_LEVEL + "}] {" + MACRO_MESSAGE + "}";
 
     protected final DateTimeFormatter dateFormat;
     private final String format;
@@ -51,21 +56,16 @@ public class DefaultFormat implements Format
      */
     public DefaultFormat()
     {
-        this("{date} [{level}] {msg}");
+        this(DEFAULT_FORMAT);
     }
 
     public void writeEntry(LogEntry logEntry, StringBuilder builder)
     {
-        String message = String.valueOf(logEntry.getMessage());
-        Map<String, Object> map = new HashMap<String, Object>();
-        if (logEntry.hasArgs())
-        {
-            message = DefaultFormat.insertArgs(message, logEntry.getArgs());
-        }
-        map.put("msg", message);
-        map.put("date", dateFormat.format(logEntry.getDateTime()));
-        map.put("level", logEntry.getLevel().getName());
-        builder.append(MACRO_PROCESSOR.process(format, map)).append("\n");
+        Map<String, Object> map = new IdentityHashMap<>(3);
+        map.put(MACRO_MESSAGE, processSimpleMacros(String.valueOf(logEntry.getMessage()), logEntry.getArgs()));
+        map.put(MACRO_DATE, dateFormat.format(logEntry.getDateTime()));
+        map.put(MACRO_LEVEL, logEntry.getLevel().getName());
+        builder.append(processMacros(format, map)).append("\n");
         writeThrowable(logEntry, builder);
     }
 
@@ -98,46 +98,5 @@ public class DefaultFormat implements Format
             }
             while (throwable != null);
         }
-    }
-
-    /**
-     * Parses the messageArguments into the message
-     *
-     * @param msg  the message
-     * @param args the arguments
-     *
-     * @return the resulting message
-     */
-    public static String insertArgs(String msg, Object... args)
-    {
-        if (args == null || args.length == 0)
-        {
-            return msg;
-        }
-        int i = 0;
-        String result = msg;
-        while (result.contains("{}"))
-        {
-            try
-            {
-                result = result.replaceFirst(ARG, "\\{" + i++ + "\\}");
-            }
-            catch (ArrayIndexOutOfBoundsException e)
-            {
-                throw new IllegalArgumentException("Not enough arguments!", e);
-            }
-        }
-        for (i = 0; i < args.length; i++)
-        {
-            if (result.contains("{"))
-            {
-                result = result.replace("{" + i + "}", String.valueOf(args[i]));
-            }
-            else
-            {
-                break;
-            }
-        }
-        return result;
     }
 }

@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Map;
 import org.cubeengine.logscribe.MacroProcessor;
 
@@ -14,8 +14,13 @@ import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 
 public abstract class BasicCycler implements LogCycler
 {
-    private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();
-    public static final String DEFAULT_LINE_FORMAT = "{name}_{date}{_i}{ending}";
+    private static final String MACRO_DATE = "date";
+    private static final String MACRO_NAME = "name";
+    private static final String MACRO_ENDING = "ending";
+    private static final String MACRO_INDEX = "i";
+    private static final String MACRO_INDEX_SUFFIX = "_i";
+
+    public static final String DEFAULT_LINE_FORMAT = "{" + MACRO_NAME + "}_{" + MACRO_DATE + "}{" + MACRO_INDEX_SUFFIX + "}{" + MACRO_ENDING + "}";
     public static final DateTimeFormatter DEFAULT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd--HHmm");
 
     private String format;
@@ -40,19 +45,20 @@ public abstract class BasicCycler implements LogCycler
             ending = name.substring(name.lastIndexOf('.'));
             name = name.substring(0, name.lastIndexOf('.'));
         }
-        Map<String, Object> map = new HashMap<>();
-        map.put("date", dateFormat.format(Instant.now()));
-        map.put("name", name);
-        map.put("ending", ending);
-        map.put("_i", "");
-        map.put("i", "");
+        Map<String, Object> map = new IdentityHashMap<>(5);
+        map.put(MACRO_DATE, dateFormat.format(Instant.now()));
+        map.put(MACRO_NAME, name);
+        map.put(MACRO_ENDING, ending);
+        map.put(MACRO_INDEX, "");
+        map.put(MACRO_INDEX_SUFFIX, "");
+
         Path cycled;
         int i = 1;
         do
         {
-            cycled = directory.resolve(MACRO_PROCESSOR.process(format, map));
-            map.put("_i", "_" + i);
-            map.put("i", i++);
+            cycled = directory.resolve(MacroProcessor.processMacros(format, map));
+            map.put(MACRO_INDEX_SUFFIX, "_" + i);
+            map.put(MACRO_INDEX, i++);
         }
         while (Files.exists(cycled));
 

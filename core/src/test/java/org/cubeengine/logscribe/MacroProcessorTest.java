@@ -22,35 +22,38 @@
  */
 package org.cubeengine.logscribe;
 
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Map;
-
-import org.junit.Before;
 import org.junit.Test;
 
+import static org.cubeengine.logscribe.MacroProcessor.processMacros;
+import static org.cubeengine.logscribe.MacroProcessor.processSimpleMacros;
 import static org.junit.Assert.assertEquals;
 
 public class MacroProcessorTest
 {
-    private MacroProcessor macroProcessor;
-
-    @Before
-    public void setUp() throws Exception
-    {
-        this.macroProcessor = new MacroProcessor();
-    }
-
     @Test
-    public void testMacroProcessor()
+    public void testProcessMacros()
     {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new IdentityHashMap<>();
         map.put("key", "value");
         map.put("key2", "value2");
         map.put("key}", "value3");
-        assertEquals(this.macroProcessor.process("{key}{key2}", map), "valuevalue2");
-        assertEquals(this.macroProcessor.process("{{key}{key2}", map), "value2");
-        assertEquals(this.macroProcessor.process("\\{{key}|{key2}}", map), "{value|value2}");
-        assertEquals(this.macroProcessor.process("{key\\}}", map), "value3");
-        assertEquals(this.macroProcessor.process("{}{keywithoutvalue}:\\{a}\\", map), "{}:{a}\\");
+        assertEquals("valuevalue2", processMacros("{key}{key2}", map));
+        assertEquals("{valuevalue2", processMacros("{{key}{key2}", map));
+        assertEquals("{value|value2}", processMacros("\\{{key}|{key2}}", map));
+        assertEquals("{}{keywithoutvalue}:{a}\\", processMacros("{}{keywithoutvalue}:\\{a}\\", map));
+    }
+
+    @Test
+    public void testProcessSimpleMacros()
+    {
+        Object[] args = {"a", 2, 3d};
+
+        assertEquals("a2", processSimpleMacros("{}{}", args));
+        assertEquals("{a2", processSimpleMacros("{{}{}", args));
+        assertEquals("{}a|2}", processSimpleMacros("\\{}{}|{}}", args));
+        assertEquals("a2\\", processSimpleMacros("{}{}\\", args));
+        assertEquals("a23.0{}", processSimpleMacros("{}{}{}{}", args));
     }
 }

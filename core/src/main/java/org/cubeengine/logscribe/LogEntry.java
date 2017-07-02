@@ -30,6 +30,8 @@ import java.time.ZonedDateTime;
  */
 public class LogEntry
 {
+    public static final Object[] NO_ARGS = {};
+
     private LogLevel level;
     private String message;
     private Object[] args;
@@ -50,7 +52,7 @@ public class LogEntry
         this.level = level;
         this.throwable = throwable;
         this.message = message;
-        this.args = args == null ? null : args.clone();
+        this.args = (args == null || args == NO_ARGS) ? NO_ARGS : args.clone();
         this.date = date;
     }
 
@@ -121,7 +123,7 @@ public class LogEntry
      */
     public boolean hasArgs()
     {
-        return this.args != null && this.args.length > 0;
+        return this.args.length > 0;
     }
 
     /**

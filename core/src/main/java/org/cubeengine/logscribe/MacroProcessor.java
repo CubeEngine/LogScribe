@@ -31,120 +31,186 @@ public class MacroProcessor
 {
     private static final char MACRO_BEGIN = '{';
     private static final char MACRO_END = '}';
-    private static final char MACRO_ESCAPE = '\\';
+    private static final char ESCAPE = '\\';
 
     /**
-     * Processes Macros in a message
-     * <p>e.g.: Replaces {key} with the value of "key" in arguments
+     * Processes named macros in a message.
+     * <p>e.g.: Replaces {key} with the value of "key" in arguments.
+     * Macros names will be intern'ed by the parser, so IdentityHashMaps can be used.
      *
-     * @param message   the message
-     * @param arguments the arguments
+     * @param message the message
+     * @param macros  the arguments
      *
      * @return the processed message
      */
-    public String process(String message, Map<String, Object> arguments)
+    public static String processMacros(String message, Map<String, Object> macros)
     {
-        StringBuilder finalString = new StringBuilder();
-        StringBuilder keyBuffer = null;
-        StringBuilder curBuilder = finalString;
-        boolean escape = false;
-        char[] chars = message.toCharArray();
-        for (char curChar : chars)
+        if (message.isEmpty())
         {
-            if (curChar == MACRO_ESCAPE)
+            return message;
+        }
+        StringBuilder out = new StringBuilder(message.length() * 2);
+
+        int i = 0;
+        final int len = message.length();
+        char current;
+        boolean expectPlain = false;
+
+        while (i < len)
+        {
+            current = message.charAt(i);
+
+            if (!expectPlain && current == MACRO_BEGIN)
             {
-                if (escape)
+                final int start = i + 1;
+                final int end = message.indexOf(MACRO_END, start);
+                if (end == -1 || end == start)
                 {
-                    curBuilder.append(curChar);
-                    escape = false;
+                    expectPlain = true;
                 }
                 else
                 {
-                    escape = true;
-                }
-            }
-            else if (curChar == MACRO_BEGIN)
-            {
-                if (curBuilder == keyBuffer)
-                {
-                    // macro begin in macro
-                    if (escape)
+                    String name = message.substring(start, end).intern();
+                    Object arg = macros.get(name);
+                    if (arg != null)
                     {
-                        curBuilder.append(MACRO_ESCAPE);
-                        escape = false;
-                    }
-                    curBuilder.append(curChar);
-                }
-                else
-                {
-                    // macro begin
-                    if (escape)
-                    {
-                        curBuilder.append(curChar);
-                        escape = false;
+                        out.append(arg);
+                        i = end + 1;
                     }
                     else
                     {
-                        keyBuffer = new StringBuilder();
-                        curBuilder = keyBuffer;
+                        expectPlain = true;
                     }
-                }
-            }
-            else if (curChar == MACRO_END)
-            {
-                if (curBuilder == keyBuffer)
-                {
-                    // macro end
-                    if (escape)
-                    {
-                        curBuilder.append(curChar);
-                        escape = false;
-                    }
-                    else
-                    {
-                        curBuilder = finalString;
-                        if (keyBuffer.length() == 0)
-                        {
-                            finalString.append(MACRO_BEGIN).append(MACRO_END);
-                        }
-                        else
-                        {
-                            Object value = arguments.get(keyBuffer.toString());
-                            if (value != null)
-                            {
-                                curBuilder.append(String.valueOf(value));
-                            }
-                        }
-                        keyBuffer = null;
-                    }
-                }
-                else
-                {
-                    // macro end outside of macro
-                    if (escape)
-                    {
-                        curBuilder.append(MACRO_ESCAPE);
-                        escape = false;
-                    }
-                    curBuilder.append(curChar);
                 }
             }
             else
             {
-                if (escape)
+                int start = i;
+                if (expectPlain)
                 {
-                    curBuilder.append(MACRO_ESCAPE);
-                    escape = false;
+                    ++i;
                 }
-                curBuilder.append(curChar);
+                expectPlain = false;
+                boolean escaped = false;
+                while (i < message.length())
+                {
+                    current = message.charAt(i);
+                    if (current == ESCAPE && i + 1 < message.length())
+                    {
+                        i++;
+                        current = message.charAt(i++);
+                        escaped = current == ESCAPE || current == MACRO_BEGIN;
+                    }
+                    else if (current == MACRO_BEGIN)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        ++i;
+                    }
+                }
+
+                if (escaped)
+                {
+                    unescape(message, start, i, out);
+                }
+                else
+                {
+                    out.append(message, start, i);
+                }
             }
         }
-        if (escape)
+
+        return out.toString();
+    }
+
+    /**
+     * Processes simple {} macros by inserting values from args with the matching index.
+     * If more macros than arguments exist, additional macros will not be replaced.
+     *
+     * @param input the message
+     * @param args  the arguments
+     *
+     * @return the processed message
+     */
+    public static String processSimpleMacros(String input, Object[] args)
+    {
+        if (input.isEmpty() || args.length == 0)
         {
-            // if last character was escape readd
-            finalString.append(MACRO_ESCAPE);
+            return input;
         }
 
-        return finalString.toString();
+        StringBuilder out = new StringBuilder();
+
+        int stringIndex = 0;
+        int argIndex = 0;
+        int len = input.length();
+        char current;
+        char next;
+
+        while (stringIndex < len)
+        {
+            current = input.charAt(stringIndex);
+            if (current == ESCAPE && stringIndex + 1 < len)
+            {
+                next = input.charAt(stringIndex + 1);
+                if (next == ESCAPE || next == MACRO_BEGIN)
+                {
+                    stringIndex++;
+                    out.append(next);
+                }
+                else
+                {
+                    out.append(current);
+                }
+            }
+            else if (current == MACRO_BEGIN && stringIndex + 1 < len)
+            {
+                next = input.charAt(stringIndex + 1);
+                if (next == MACRO_END && argIndex < args.length)
+                {
+                    stringIndex++;
+                    out.append(args[argIndex++]);
+                }
+                else
+                {
+                    out.append(current);
+                }
+            }
+            else
+            {
+                out.append(current);
+            }
+
+            stringIndex++;
+        }
+
+        return out.toString();
+    }
+
+    private static void unescape(String input, int start, int end, StringBuilder out)
+    {
+        char current, next;
+        for (int i = start; i < end; ++i)
+        {
+            current = input.charAt(i);
+            if (current == ESCAPE && i + 1 < end)
+            {
+                next = input.charAt(++i);
+                if (next == ESCAPE || next == MACRO_BEGIN)
+                {
+                    out.append(next);
+                }
+                else
+                {
+                    out.append(current).append(next);
+                }
+            }
+            else
+            {
+                out.append(current);
+            }
+        }
     }
 }
