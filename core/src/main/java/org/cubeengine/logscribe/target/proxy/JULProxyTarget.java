@@ -8,7 +8,8 @@ import java.util.logging.Logger;
 
 import org.cubeengine.logscribe.LogEntry;
 import org.cubeengine.logscribe.LogLevel;
-import org.cubeengine.logscribe.target.format.DefaultFormat;
+
+import static org.cubeengine.logscribe.MacroProcessor.processSimpleMacros;
 
 /**
  * A ProxyTarget for {@link java.util.logging.Logger
@@ -30,7 +31,7 @@ public class JULProxyTarget extends ProxyTarget<Logger>
     @Override
     protected void publish(LogEntry entry)
     {
-        String parsedMessage = DefaultFormat.insertArgs(entry.getMessage(), entry.getArgs());
+        String parsedMessage = processSimpleMacros(entry.getMessage(), entry.getArgs());
         LogRecord logRecord = new LogRecord(this.getJulLevel(entry.getLevel()), parsedMessage);
         logRecord.setMillis(entry.getDateTime().toInstant().toEpochMilli());
         logRecord.setThrown(entry.getThrowable());

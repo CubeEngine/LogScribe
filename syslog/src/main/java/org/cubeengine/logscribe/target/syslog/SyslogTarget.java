@@ -3,10 +3,11 @@ package org.cubeengine.logscribe.target.syslog;
 import org.cubeengine.logscribe.Flushable;
 import org.cubeengine.logscribe.LogEntry;
 import org.cubeengine.logscribe.LogTarget;
-import org.cubeengine.logscribe.target.format.DefaultFormat;
 import org.graylog2.syslog4j.Syslog;
 import org.graylog2.syslog4j.SyslogConfigIF;
 import org.graylog2.syslog4j.SyslogIF;
+
+import static org.cubeengine.logscribe.MacroProcessor.processSimpleMacros;
 
 public class SyslogTarget extends LogTarget implements Flushable
 {
@@ -36,12 +37,7 @@ public class SyslogTarget extends LogTarget implements Flushable
     @Override
     protected void publish(LogEntry entry)
     {
-        String message = entry.getMessage();
-        if (entry.hasArgs())
-        {
-            message = DefaultFormat.insertArgs(message, entry.getArgs());
-        }
-        this.syslog.log(entry.getLevel().getPriority(), message);
+        this.syslog.log(entry.getLevel().getPriority(), processSimpleMacros(entry.getMessage(), entry.getArgs()));
     }
 
     public void flush()

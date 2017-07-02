@@ -136,7 +136,7 @@ public class MacroProcessor
      */
     public static String processSimpleMacros(String input, Object[] args)
     {
-        if (input.isEmpty() || args.length == 0)
+        if (input == null || input.isEmpty() || args.length == 0)
         {
             return input;
         }

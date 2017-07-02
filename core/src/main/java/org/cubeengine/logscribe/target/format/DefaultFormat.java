@@ -62,7 +62,7 @@ public class DefaultFormat implements Format
     public void writeEntry(LogEntry logEntry, StringBuilder builder)
     {
         Map<String, Object> map = new IdentityHashMap<>(3);
-        map.put(MACRO_MESSAGE, processSimpleMacros(String.valueOf(logEntry.getMessage()), logEntry.getArgs()));
+        map.put(MACRO_MESSAGE, processSimpleMacros(logEntry.getMessage(), logEntry.getArgs()));
         map.put(MACRO_DATE, dateFormat.format(logEntry.getDateTime()));
         map.put(MACRO_LEVEL, logEntry.getLevel().getName());
         builder.append(processMacros(format, map)).append("\n");
