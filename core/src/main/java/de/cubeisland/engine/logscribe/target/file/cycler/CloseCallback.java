@@ -1,5 +1,6 @@
 package de.cubeisland.engine.logscribe.target.file.cycler;
 
+@FunctionalInterface
 public interface CloseCallback
 {
     /**

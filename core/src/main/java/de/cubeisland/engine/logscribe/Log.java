@@ -155,9 +155,9 @@ public class Log extends LogBase implements Flushable
     }
 
     /**
-     * Returns a unmodifiable List of the targets
+     * Returns an unmodifiable List of the targets
      *
-     * @return
+     * @return a list of the targets
      */
     public List<LogTarget> getTargets()
     {
@@ -165,9 +165,9 @@ public class Log extends LogBase implements Flushable
     }
 
     /**
-     * Returns true if this Logger got shut down
+     * Returns true if this Log got shut down
      *
-     * @return
+     * @return true if shut down
      */
     public boolean isShutdown()
     {

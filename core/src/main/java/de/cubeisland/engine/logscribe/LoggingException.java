@@ -27,10 +27,6 @@ package de.cubeisland.engine.logscribe;
  */
 public class LoggingException extends RuntimeException
 {
-    public LoggingException()
-    {
-    }
-
     public LoggingException(String message)
     {
         super(message);

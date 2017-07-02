@@ -1,7 +1,7 @@
 package de.cubeisland.engine.logscribe.target.proxy;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -15,7 +15,7 @@ import de.cubeisland.engine.logscribe.target.format.DefaultFormat;
  */
 public class JULProxyTarget extends ProxyTarget<Logger>
 {
-    private final Map<LogLevel, Level> cachedJulLevel = new HashMap<LogLevel, Level>();
+    private final Map<LogLevel, Level> cachedJulLevel = new ConcurrentHashMap<>();
 
     /**
      * Creates a new ProxyTarget for given Logger
@@ -30,9 +30,9 @@ public class JULProxyTarget extends ProxyTarget<Logger>
     @Override
     protected void publish(LogEntry entry)
     {
-        String parsedMessage = DefaultFormat.parseArgs(entry.getMessage(), entry.getArgs());
+        String parsedMessage = DefaultFormat.insertArgs(entry.getMessage(), entry.getArgs());
         LogRecord logRecord = new LogRecord(this.getJulLevel(entry.getLevel()), parsedMessage);
-        logRecord.setMillis(entry.getDate().getTime());
+        logRecord.setMillis(entry.getDateTime().toInstant().toEpochMilli());
         logRecord.setThrown(entry.getThrowable());
         this.handle.log(logRecord);
     }
@@ -45,13 +45,7 @@ public class JULProxyTarget extends ProxyTarget<Logger>
 
     private Level getJulLevel(LogLevel level)
     {
-        Level julLevel = this.cachedJulLevel.get(level);
-        if (julLevel == null)
-        {
-            julLevel = new JulLevel(level);
-            this.cachedJulLevel.put(level, julLevel);
-        }
-        return julLevel;
+        return this.cachedJulLevel.computeIfAbsent(level, JulLevel::new);
     }
 
     private static class JulLevel extends Level

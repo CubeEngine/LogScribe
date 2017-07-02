@@ -1,6 +1,6 @@
 package de.cubeisland.engine.logscribe.target.file.cycler;
 
-import java.io.File;
+import java.nio.file.Path;
 
 /**
  * A LogCycler cycle through files under certain conditions
@@ -15,5 +15,5 @@ public interface LogCycler
      *
      * @return the new file
      */
-    File cycle(File file, CloseCallback closeCallBack);
+    Path cycle(Path file, CloseCallback closeCallBack);
 }

@@ -7,7 +7,7 @@ public class CSVFileFormat implements FileFormat
 {
     public void writeHeader(StringBuilder builder)
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        builder.append("#a,b,c");
     }
 
     public void writeEntry(LogEntry logEntry, StringBuilder builder)

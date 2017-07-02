@@ -1,7 +1,6 @@
 package de.cubeisland.engine.logscribe.target.format;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ public class DefaultFormat implements Format
     private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();
     private static final String ARG = "\\{\\}";
 
-    protected final DateFormat dateFormat;
+    protected final DateTimeFormatter dateFormat;
     private final String format;
 
     /**
@@ -27,7 +26,7 @@ public class DefaultFormat implements Format
      * @param format     the Format String
      * @param dateFormat the DateFormat
      */
-    public DefaultFormat(String format, DateFormat dateFormat)
+    public DefaultFormat(String format, DateTimeFormatter dateFormat)
     {
         assert format != null : "The format String cannot be null";
         assert dateFormat != null : "The DateFormatter cannot be nul";
@@ -42,7 +41,7 @@ public class DefaultFormat implements Format
      */
     public DefaultFormat(String format)
     {
-        this(format, new SimpleDateFormat());
+        this(format, DateTimeFormatter.ISO_DATE_TIME);
     }
 
     /**
@@ -61,10 +60,10 @@ public class DefaultFormat implements Format
         Map<String, Object> map = new HashMap<String, Object>();
         if (logEntry.hasArgs())
         {
-            message = DefaultFormat.parseArgs(message, logEntry.getArgs());
+            message = DefaultFormat.insertArgs(message, logEntry.getArgs());
         }
         map.put("msg", message);
-        map.put("date", dateFormat.format(logEntry.getDate()));
+        map.put("date", dateFormat.format(logEntry.getDateTime()));
         map.put("level", logEntry.getLevel().getName());
         builder.append(MACRO_PROCESSOR.process(format, map)).append("\n");
         writeThrowable(logEntry, builder);
@@ -109,7 +108,7 @@ public class DefaultFormat implements Format
      *
      * @return the resulting message
      */
-    public static String parseArgs(String msg, Object... args)
+    public static String insertArgs(String msg, Object... args)
     {
         if (args == null || args.length == 0)
         {

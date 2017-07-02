@@ -27,7 +27,7 @@ package de.cubeisland.engine.logscribe;
  */
 public abstract class LogTarget extends Filterable
 {
-    private boolean isShutdown = false;
+    private volatile boolean isShutdown = false;
 
     /**
      * Shuts down this LogTarget

@@ -1,83 +1,42 @@
 package de.cubeisland.engine.logscribe.target.file.cycler;
 
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import de.cubeisland.engine.logscribe.LoggingException;
-import de.cubeisland.engine.logscribe.MacroProcessor;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.format.DateTimeFormatter;
 
 /**
- * Logcycling based on FileSize
+ * Log cycling based on FileSize
  */
-public class FilesizeCycler implements LogCycler
+public class FilesizeCycler extends BasicCycler
 {
-    private static final MacroProcessor MACRO_PROCESSOR = new MacroProcessor();
-    public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd--HHmm";
-
-    // {i} {date} {name} {ending}
-
     private long bytes;
-    private String format;
-    private DateFormat dateFormat;
 
     public FilesizeCycler(long bytes)
     {
-        this(bytes, "{name}_{date}{_i}{ending}", new SimpleDateFormat(DEFAULT_DATE_PATTERN));
+        this(bytes, BasicCycler.DEFAULT_LINE_FORMAT, BasicCycler.DEFAULT_DATE_FORMAT);
     }
 
-    public FilesizeCycler(long bytes, String format)
+    public FilesizeCycler(long bytes, String format, DateTimeFormatter dateFormat)
     {
-        this(bytes, format, new SimpleDateFormat(DEFAULT_DATE_PATTERN));
-    }
-
-    public FilesizeCycler(long bytes, String format, DateFormat dateFormat)
-    {
+        super(format, dateFormat);
         this.bytes = bytes;
-        this.format = format;
-        this.dateFormat = dateFormat;
     }
 
-    public File cycle(File file, CloseCallback closeCallBack)
+    @Override
+    public Path cycle(Path path, CloseCallback closeCallBack)
     {
-        if (file.length() >= bytes)
+        try
         {
-            // Close open stream
-            closeCallBack.close();
-            File directory = file.getParentFile();
-            String name = file.getName();
-            String ending = "";
-            if (name.contains("."))
+            if (Files.size(path) >= bytes)
             {
-                ending = name.substring(name.lastIndexOf('.'));
-                name = name.substring(0, name.lastIndexOf('.'));
+                return super.cycle(path, closeCallBack);
             }
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("date", dateFormat.format(new Date(System.currentTimeMillis())));
-            map.put("name", name);
-            map.put("ending", ending);
-            map.put("_i", "");
-            map.put("i", "");
-            File cycled = new File(directory, MACRO_PROCESSOR.process(format, map));
-            int i = 1;
-            while (cycled.exists())
-            {
-                map.put("_i", "_" + i);
-                map.put("i", i++);
-                cycled = new File(directory, MACRO_PROCESSOR.process(format, map));
-            }
-            if (!(cycled.getParentFile().exists() || cycled.getParentFile().mkdirs()))
-            {
-                throw new LoggingException("Could not create the parent-folder for file to cycle");
-            }
-            if (!file.renameTo(cycled))
-            {
-                throw new IllegalStateException("Error when Cycling");
-            }
+            return path;
         }
-        return file;
+        catch (IOException e)
+        {
+            throw new LogCyclerException(e);
+        }
     }
 }

@@ -17,7 +17,7 @@ public abstract class LogLevelFilter implements LogFilter
 
     public LogLevelFilter()
     {
-        this.levelMap = new HashMap<LogLevel, LogLevel>();
+        this.levelMap = new HashMap<>();
         this.initLevels(this.levelMap);
     }
 

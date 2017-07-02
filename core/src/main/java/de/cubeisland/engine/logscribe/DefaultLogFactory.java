@@ -37,24 +37,13 @@ public class DefaultLogFactory implements LogFactory
      */
     public DefaultLogFactory()
     {
-        this.logs = new ConcurrentHashMap<Class<?>, Map<String, Log>>();
+        this.logs = new ConcurrentHashMap<>();
     }
 
     public Log getLog(Class<?> clazz, String id)
     {
-        Map<String, Log> logMap = this.logs.get(clazz);
-        if (logMap == null)
-        {
-            logMap = new ConcurrentHashMap<String, Log>();
-            this.logs.put(clazz, logMap);
-        }
-        Log log = logMap.get(id);
-        if (log == null)
-        {
-            log = new Log(this, clazz, id);
-            logMap.put(id, log);
-        }
-        return log;
+        Map<String, Log> logMap = this.logs.computeIfAbsent(clazz, k -> new ConcurrentHashMap<>());
+        return logMap.computeIfAbsent(id, i -> new Log(this, clazz, i));
     }
 
     public Log getLog(Class<?> clazz)

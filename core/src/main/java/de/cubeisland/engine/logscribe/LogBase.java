@@ -22,6 +22,9 @@
  */
 package de.cubeisland.engine.logscribe;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
@@ -98,7 +101,7 @@ public abstract class LogBase extends Filterable
             return;
         }
 
-        this.log(new LogEntry(level, throwable, message, arguments, new Date()));
+        this.log(new LogEntry(level, throwable, message, arguments, ZonedDateTime.now()));
     }
 
     /**

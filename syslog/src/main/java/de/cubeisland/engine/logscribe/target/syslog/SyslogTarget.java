@@ -39,7 +39,7 @@ public class SyslogTarget extends LogTarget implements Flushable
         String message = entry.getMessage();
         if (entry.hasArgs())
         {
-            message = DefaultFormat.parseArgs(message, entry.getArgs());
+            message = DefaultFormat.insertArgs(message, entry.getArgs());
         }
         this.syslog.log(entry.getLevel().getPriority(), message);
     }

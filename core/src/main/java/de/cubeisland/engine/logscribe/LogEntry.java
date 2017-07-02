@@ -22,7 +22,8 @@
  */
 package de.cubeisland.engine.logscribe;
 
-import java.util.Date;
+
+import java.time.ZonedDateTime;
 
 /**
  * A LogEntry with LogLevel, Message, Arguments, Throwable and Date
@@ -33,7 +34,7 @@ public class LogEntry
     private String message;
     private Object[] args;
     private Throwable throwable;
-    private Date date;
+    private ZonedDateTime date;
 
     /**
      * Creates a new LogEntry
@@ -44,7 +45,7 @@ public class LogEntry
      * @param args      the messageArguments
      * @param date      the date
      */
-    public LogEntry(LogLevel level, Throwable throwable, String message, Object[] args, Date date)
+    public LogEntry(LogLevel level, Throwable throwable, String message, Object[] args, ZonedDateTime date)
     {
         this.level = level;
         this.throwable = throwable;
@@ -148,7 +149,7 @@ public class LogEntry
      *
      * @return the date
      */
-    public Date getDate()
+    public ZonedDateTime getDateTime()
     {
         return date;
     }
@@ -160,7 +161,7 @@ public class LogEntry
      */
     LogEntry copy()
     {
-        return new LogEntry(this.getLevel(), this.getThrowable(), this.getMessage(), this.getArgs(), this.getDate());
+        return new LogEntry(this.getLevel(), this.getThrowable(), this.getMessage(), this.getArgs(), this.getDateTime());
     }
 
     /**
