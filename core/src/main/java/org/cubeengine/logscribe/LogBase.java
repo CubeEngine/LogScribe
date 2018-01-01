@@ -33,10 +33,11 @@ public abstract class LogBase extends Filterable
 {
     /**
      * Log a message, with no arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the given message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param level   the level to log with
      * @param message the message to log
@@ -48,10 +49,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a message, with associated Throwable information.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the given message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param level     the level to log with
      * @param throwable the Throwable associated with this log message
@@ -64,10 +66,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the given message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param level     the level to log with
      * @param message   the message to log
@@ -80,10 +83,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a message, with an array of object arguments and associated Throwable information.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the given message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param level     the level to log with
      * @param throwable the Throwable associated with this log message
@@ -103,10 +107,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a TRACE message.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the TRACE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message the message to log
      */
@@ -117,10 +122,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a TRACE message, with associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the TRACE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -132,10 +138,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a TRACE message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the TRACE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message   the message to log
      * @param arguments the array of arguments for the message
@@ -147,10 +154,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a TRACE message, with an array of object arguments and associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the TRACE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -163,10 +171,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a DEBUG message.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the DEBUG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message the message to log
      */
@@ -177,10 +186,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a DEBUG message, with associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the DEBUG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -192,10 +202,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a DEBUG message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the DEBUG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message   the message to log
      * @param arguments the array of arguments for the message
@@ -207,10 +218,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a DEBUG message, with an array of object arguments and associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the DEBUG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -223,10 +235,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a INFO message.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the INFO message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message the message to log
      */
@@ -237,10 +250,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a INFO message, with associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the INFO message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -252,10 +266,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a INFO message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the INFO message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message   the message to log
      * @param arguments the array of arguments for the message
@@ -267,10 +282,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a INFO message, with an array of object arguments and associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the INFO message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -283,10 +299,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a NOTICE message.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the NOTICE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message the message to log
      */
@@ -297,10 +314,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a NOTICE message, with associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the NOTICE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -312,10 +330,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a NOTICE message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the NOTICE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message   the message to log
      * @param arguments the array of arguments for the message
@@ -327,10 +346,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a NOTICE message, with an array of object arguments and associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the NOTICE message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -343,10 +363,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a WARNING message.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the WARNING message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message the message to log
      */
@@ -357,10 +378,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a WARNING message, with associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the WARNING message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -372,10 +394,10 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a WARNING message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the WARNING message
      * level then the given message is forwarded to all the
-     * registered LogTarget objects.
+     * registered LogTarget objects.</p>
      *
      * @param message   the message to log
      * @param arguments the array of arguments for the message
@@ -387,10 +409,10 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a WARNING message, with an array of object arguments and associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the WARNING message
      * level then the given message is forwarded to all the
-     * registered LogTarget objects.
+     * registered LogTarget objects.</p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -403,10 +425,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a ERROR message.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the ERROR message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message the message to log
      */
@@ -417,10 +440,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a ERROR message, with associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the ERROR message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -432,10 +456,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a ERROR message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the ERROR message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message   the message to log
      * @param arguments the array of arguments for the message
@@ -447,10 +472,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a ERROR message, with an array of object arguments and associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the ERROR message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -463,10 +489,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a CRITICAL message.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the CRITICAL message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message the message to log
      */
@@ -477,10 +504,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a CRITICAL message, with associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the CRITICAL message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -492,10 +520,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a CRITICAL message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the CRITICAL message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message   the message to log
      * @param arguments the array of arguments for the message
@@ -507,10 +536,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a CRITICAL message, with an array of object arguments and associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the CRITICAL message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -523,10 +553,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a FATAL message.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the FATAL message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message the message to log
      */
@@ -537,10 +568,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a FATAL message, with associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the FATAL message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -552,10 +584,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a FATAL message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the FATAL message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message   the message to log
      * @param arguments the array of arguments for the message
@@ -567,10 +600,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a FATAL message, with an array of object arguments and associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the FATAL message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -583,10 +617,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a EMERG message.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the EMERG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message the message to log
      */
@@ -597,10 +632,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a EMERG message, with associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the EMERG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log
@@ -612,10 +648,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a EMERG message, with an array of object arguments.
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the EMERG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param message   the message to log
      * @param arguments the array of arguments for the message
@@ -627,10 +664,11 @@ public abstract class LogBase extends Filterable
 
     /**
      * Log a EMERG message, with an array of object arguments and associated Throwable information
-     * <p/>
+     * <p>
      * If the logger is currently enabled for the EMERG message
      * level then the given message is forwarded to all the
      * registered LogTarget objects.
+     * </p>
      *
      * @param throwable the Throwable associated with this log message
      * @param message   the message to log

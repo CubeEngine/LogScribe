@@ -5,9 +5,9 @@ import org.cubeengine.logscribe.LogTarget;
 
 /**
  * An abstract proxy target
- * <p>This Target delegates a LogEntry to an other Logger
+ * <p>This Target delegates a LogEntry to an other Logger</p>
  *
- * @param <T>
+ * @param <T> the Proxy Type
  */
 public abstract class ProxyTarget<T> extends LogTarget
 {

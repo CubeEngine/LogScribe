@@ -23,6 +23,8 @@ public abstract class LogLevelFilter implements LogFilter
 
     /**
      * Initializes the map
+     *
+     * @param levels the loglevels
      */
     protected abstract void initLevels(Map<LogLevel, LogLevel> levels);
 

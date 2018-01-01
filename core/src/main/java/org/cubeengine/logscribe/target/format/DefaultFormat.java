@@ -11,8 +11,8 @@ import static org.cubeengine.logscribe.MacroProcessor.processSimpleMacros;
 
 /**
  * A Simple Plain Text Format
- * <p/>
- * This format allows {msg}, {date} and {level} as macros
+ *
+ * <p>This format allows <code>{msg}, {date} and {level}</code> as macros</p>
  */
 public class DefaultFormat implements Format
 {
@@ -51,8 +51,8 @@ public class DefaultFormat implements Format
 
     /**
      * Creates a new Format using this Format String:
-     * <p>{date} [{level}] {msg}
-     * <p>and the default SimpleDateFormat
+     * <p><code>{date} [{level}] {msg}</code></p>
+     * <p>and the default SimpleDateFormat</p>
      */
     public DefaultFormat()
     {

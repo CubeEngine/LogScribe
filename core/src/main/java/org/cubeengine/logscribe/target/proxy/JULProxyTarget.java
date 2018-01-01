@@ -12,7 +12,7 @@ import org.cubeengine.logscribe.LogLevel;
 import static org.cubeengine.logscribe.MacroProcessor.processSimpleMacros;
 
 /**
- * A ProxyTarget for {@link java.util.logging.Logger
+ * A ProxyTarget for {@link java.util.logging.Logger}
  */
 public class JULProxyTarget extends ProxyTarget<Logger>
 {
