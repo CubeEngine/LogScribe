@@ -10,7 +10,7 @@
 
     <groupId>org.cubeengine</groupId>
     <artifactId>logscribe</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
 
     <name>LogScribe</name>
@@ -29,7 +29,7 @@
         <url>https://github.com/CubeEngine/LogScribe</url>
         <connection>scm:git:https://github.com/CubeEngine/LogScribe</connection>
         <developerConnection>scm:git:git@github.com:CubeEngine/LogScribe</developerConnection>
-        <tag>HEAD</tag>
+        <tag>logscribe-1.0.1</tag>
     </scm>
 
     <distributionManagement>
