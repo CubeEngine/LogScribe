@@ -20,12 +20,13 @@ import org.cubeengine.logscribe.target.file.format.FileFormat;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.APPEND;
+import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class AsyncFileTarget extends FormattedTarget<FileFormat> implements CloseCallback
 {
-    private static final OpenOption[] OPEN_REPLACE = {TRUNCATE_EXISTING};
-    private static final OpenOption[] OPEN_APPEND = {APPEND};
+    private static final OpenOption[] OPEN_REPLACE = {TRUNCATE_EXISTING, CREATE};
+    private static final OpenOption[] OPEN_APPEND = {APPEND, CREATE};
     private final Object lock = new byte[0];
 
     private Path path;
@@ -49,6 +50,7 @@ public class AsyncFileTarget extends FormattedTarget<FileFormat> implements Clos
         this.path = path;
         this.append = append;
         this.queueConsumer = threadFactory.newThread(this::processQueue);
+        this.queueConsumer.start();
         this.cycler = cycler;
     }
 

@@ -29,7 +29,10 @@ final class BlockingRingBuffer<T>
     {
         if (isFull())
         {
-            full.wait(timeout, nanos);
+            synchronized (full)
+            {
+                full.wait(timeout, nanos);
+            }
         }
         if (isFull())
         {
@@ -41,8 +44,15 @@ final class BlockingRingBuffer<T>
             buffer[offset.accumulateAndGet(1, (a, b) -> (a + b) % capacity)] = obj;
         }
 
-        full.notifyAll();
-        empty.notifyAll();
+        synchronized (full)
+        {
+            full.notifyAll();
+        }
+        synchronized (empty)
+        {
+            empty.notifyAll();
+        }
+
         return true;
     }
 
@@ -50,7 +60,10 @@ final class BlockingRingBuffer<T>
     {
         if (isEmpty())
         {
-            empty.wait(timeout, nanos);
+            synchronized (empty)
+            {
+                empty.wait(timeout, nanos);
+            }
         }
         if (isEmpty())
         {
@@ -64,8 +77,14 @@ final class BlockingRingBuffer<T>
             out = buffer[index];
             buffer[index] = null;
         }
-        empty.notifyAll();
-        full.notifyAll();
+        synchronized (full)
+        {
+            full.notifyAll();
+        }
+        synchronized (empty)
+        {
+            empty.notifyAll();
+        }
         return out;
     }
 

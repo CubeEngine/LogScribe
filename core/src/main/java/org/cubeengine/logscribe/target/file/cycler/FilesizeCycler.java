@@ -28,7 +28,7 @@ public class FilesizeCycler extends BasicCycler
     {
         try
         {
-            if (Files.size(path) >= bytes)
+            if (Files.exists(path) && Files.size(path) >= bytes)
             {
                 return super.cycle(path, closeCallBack);
             }
